@@ -1,5 +1,6 @@
-package com.bezkoder.spring.login.security;
+package com.games.cccgame.security;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,10 +15,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.bezkoder.spring.login.security.jwt.AuthEntryPointJwt;
-import com.bezkoder.spring.login.security.jwt.AuthTokenFilter;
-import com.bezkoder.spring.login.security.services.UserDetailsServiceImpl;
+import com.games.cccgame.security.jwt.AuthEntryPointJwt;
+import com.games.cccgame.security.jwt.AuthTokenFilter;
+import com.games.cccgame.security.services.UserDetailsServiceImpl;
 
+@AllArgsConstructor
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -25,10 +27,10 @@ import com.bezkoder.spring.login.security.services.UserDetailsServiceImpl;
     // jsr250Enabled = true,
     prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-  @Autowired
+  //@Autowired
   UserDetailsServiceImpl userDetailsService;
 
-  @Autowired
+  //@Autowired
   private AuthEntryPointJwt unauthorizedHandler;
 
   @Bean

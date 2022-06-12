@@ -1,16 +1,16 @@
-package com.bezkoder.spring.login.models;
+package com.games.cccgame.models;
 
-import javax.persistence.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "roles")
+
+@Document("roles")
 public class Role {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Enumerated(EnumType.STRING)
-  @Column(length = 20)
+  /*@Enumerated(EnumType.STRING)
+  @Column(length = 20)*/
   private ERole name;
 
   public Role() {

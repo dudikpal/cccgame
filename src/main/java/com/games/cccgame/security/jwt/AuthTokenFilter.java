@@ -1,4 +1,4 @@
-package com.bezkoder.spring.login.security.jwt;
+package com.games.cccgame.security.jwt;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -22,7 +22,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.security.web.header.Header;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.bezkoder.spring.login.security.services.UserDetailsServiceImpl;
+import com.games.cccgame.security.services.UserDetailsServiceImpl;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired

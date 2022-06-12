@@ -1,4 +1,4 @@
-package com.bezkoder.spring.login.security.services;
+package com.games.cccgame.security.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,8 +7,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.bezkoder.spring.login.models.User;
-import com.bezkoder.spring.login.repository.UserRepository;
+import com.games.cccgame.models.User;
+import com.games.cccgame.repository.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

@@ -1,4 +1,4 @@
-package com.bezkoder.spring.login.payload.response;
+package com.games.cccgame.payload.response;
 
 import java.util.List;
 

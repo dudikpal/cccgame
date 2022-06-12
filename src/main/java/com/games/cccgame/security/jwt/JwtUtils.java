@@ -1,4 +1,4 @@
-package com.bezkoder.spring.login.security.jwt;
+package com.games.cccgame.security.jwt;
 
 import java.util.Date;
 
@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
-import net.bytebuddy.asm.Advice;
+//import net.bytebuddy.asm.Advice;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,20 +17,20 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.WebUtils;
 
-import com.bezkoder.spring.login.security.services.UserDetailsImpl;
+import com.games.cccgame.security.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 
 @Component
 public class JwtUtils {
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
-    @Value("${bezkoder.app.jwtSecret}")
+    @Value("${ccgamer.jwtSecret}")
     private String jwtSecret;
 
-    @Value("${bezkoder.app.jwtExpirationMs}")
+    @Value("${ccgamer.jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    @Value("${bezkoder.app.jwtCookieName}")
+    @Value("${ccgamer.jwtCookieName}")
     private String jwtCookie;
 
 

@@ -1,4 +1,4 @@
-package com.bezkoder.spring.login.payload.request;
+package com.games.cccgame.payload.request;
 
 import java.util.Set;
 

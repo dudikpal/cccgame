@@ -1,4 +1,4 @@
-package com.bezkoder.spring.login.service;
+package com.games.cccgame.service;
 
 import org.springframework.stereotype.Service;
 

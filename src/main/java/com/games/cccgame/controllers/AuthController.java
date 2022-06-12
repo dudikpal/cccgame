@@ -1,4 +1,4 @@
-package com.bezkoder.spring.login.controllers;
+package com.games.cccgame.controllers;
 
 import java.util.HashSet;
 import java.util.List;
@@ -22,20 +22,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bezkoder.spring.login.models.ERole;
-import com.bezkoder.spring.login.models.Role;
-import com.bezkoder.spring.login.models.User;
-import com.bezkoder.spring.login.payload.request.LoginRequest;
-import com.bezkoder.spring.login.payload.request.SignupRequest;
-import com.bezkoder.spring.login.payload.response.UserInfoResponse;
-import com.bezkoder.spring.login.payload.response.MessageResponse;
-import com.bezkoder.spring.login.repository.RoleRepository;
-import com.bezkoder.spring.login.repository.UserRepository;
-import com.bezkoder.spring.login.security.jwt.JwtUtils;
-import com.bezkoder.spring.login.security.services.UserDetailsImpl;
+import com.games.cccgame.models.ERole;
+import com.games.cccgame.models.Role;
+import com.games.cccgame.models.User;
+import com.games.cccgame.payload.request.LoginRequest;
+import com.games.cccgame.payload.request.SignupRequest;
+import com.games.cccgame.payload.response.UserInfoResponse;
+import com.games.cccgame.payload.response.MessageResponse;
+import com.games.cccgame.repository.RoleRepository;
+import com.games.cccgame.repository.UserRepository;
+import com.games.cccgame.security.jwt.JwtUtils;
+import com.games.cccgame.security.services.UserDetailsImpl;
 
 //@CrossOrigin(origins = "*", maxAge = 3600)
-@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*", allowCredentials = "true")
+//@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
