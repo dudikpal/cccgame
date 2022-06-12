@@ -18,9 +18,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import com.games.cccgame.security.jwt.AuthEntryPointJwt;
 import com.games.cccgame.security.jwt.AuthTokenFilter;
 import com.games.cccgame.security.services.UserDetailsServiceImpl;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @AllArgsConstructor
 @Configuration
+@EnableWebMvc
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
     // securedEnabled = true,
