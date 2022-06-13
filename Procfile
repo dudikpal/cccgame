@@ -1,1 +1,0 @@
-web: cd src/main/ui && npm start
