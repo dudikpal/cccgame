@@ -1,0 +1,55 @@
+<div class="container">
+    <mat-grid-list
+            class="header"
+            [rowHeight]="'20:1.5'"
+            cols="3"
+            >
+        <mat-grid-tile
+                class="text"
+                *ngFor="let tile of headerTiles"
+                [colspan]="tile.cols"
+                [rowspan]="tile.rows"
+                [style.background]="tile.color">
+            {{tile.text}}
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list
+            cols="4"
+            [rowHeight]="'20:17.5'"
+            [gutterSize]="'0rem'">
+        <mat-grid-tile
+                class="text"
+                *ngFor="let tile of centerTiles"
+                [colspan]="tile.cols"
+                [rowspan]="tile.rows"
+                [style.background]="tile.color"
+        >
+            <img
+                    src="assets/aston-martin-vantage_79941.webp"
+                    fxFlexFill>
+            <!--{{tile.text}}-->
+        </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list
+            [rowHeight]="'20:1.5'"
+            cols="3"
+            >
+
+        <a
+                *ngFor="let tile of footerTiles"
+                [href]="tile.href">
+        <mat-grid-tile
+                class="text footer"
+                [colspan]="tile.cols"
+                [rowspan]="tile.rows"
+                [style.background]="tile.color">
+        </mat-grid-tile>
+</a>
+    </mat-grid-list>
+    <h2>{{content}}</h2>
+
+    <button
+            (click)="toGarage()">
+        My Garage
+    </button>
+</div>
