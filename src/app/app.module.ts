@@ -20,7 +20,7 @@ import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {HomeComponent} from './home/home.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-import {LoggedInGuardService} from "./login/logged-in-guard.service";
+import {AuthGuardService} from "./login/auth-guard.service";
 import {GarageComponent} from './home/garage/garage.component';
 import {RegisterComponent} from './register/register.component';
 import {MatDividerModule} from "@angular/material/divider";
@@ -55,7 +55,7 @@ import {MatGridListModule} from "@angular/material/grid-list";
         ReactiveFormsModule,
         MatGridListModule,
     ],
-    providers: [LoggedInGuardService,
+    providers: [AuthGuardService,
         FormBuilder,],
     bootstrap: [AppComponent]
 })
