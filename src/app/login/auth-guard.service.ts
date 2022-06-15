@@ -4,7 +4,7 @@ import {Observable} from "rxjs";
 import {environment} from "../../environments/environment";
 
 @Injectable()
-export class LoggedInGuardService implements CanActivate {
+export class AuthGuardService implements CanActivate {
 
     public token!: string | null;
     public isAuthenticated = false;

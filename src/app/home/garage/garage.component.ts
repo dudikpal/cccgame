@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {LoggedInGuardService} from "../../login/logged-in-guard.service";
+import {AuthGuardService} from "../../login/auth-guard.service";
 import {DomSanitizer, SafeHtml} from "@angular/platform-browser";
 import {environment} from "../../../environments/environment";
 
@@ -18,7 +18,7 @@ export class GarageComponent implements OnInit {
   playerCards = 'Default content';
   urlPrefix = environment.urlPrefix;
 
-  constructor(private authService: LoggedInGuardService,
+  constructor(private authService: AuthGuardService,
               private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {

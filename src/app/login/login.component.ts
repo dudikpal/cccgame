@@ -1,5 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {LoggedInGuardService} from "./logged-in-guard.service";
+import {AuthGuardService} from "./auth-guard.service";
 import {AppComponent} from "../app.component";
 import {Router} from "@angular/router";
 
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     isAuthenticated: boolean = false;
 
     constructor(
-        private authService: LoggedInGuardService,
+        private authService: AuthGuardService,
         private appComponent: AppComponent,
         private router: Router
     ) {

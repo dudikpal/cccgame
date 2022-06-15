@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LoggedInGuardService} from "../login/logged-in-guard.service";
+import {AuthGuardService} from "../login/auth-guard.service";
 import {
     AbstractControl,
     FormBuilder,
@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
 
 
     constructor(
-        private authService: LoggedInGuardService,
+        private authService: AuthGuardService,
         private formBuilder: FormBuilder
     ) {
     }
@@ -91,8 +91,8 @@ export class RegisterComponent implements OnInit {
             const response = await this.authService.sendRegisterDataToBack(this.username, this.email, [], this.password);
 
             if (response !== null) {
-
                 const jsonData = await JSON.parse(response);
+                console.log(jsonData);
                 this.result = jsonData['message'];
             } else {
                 this.result = 'Error response'
