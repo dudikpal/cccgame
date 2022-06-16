@@ -34,7 +34,8 @@ import com.games.cccgame.repository.UserRepository;
 import com.games.cccgame.security.jwt.JwtUtils;
 import com.games.cccgame.security.services.UserDetailsImpl;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin
+//@CrossOrigin(origins = "*", maxAge = 3600)
 //@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*", allowCredentials = "true")
 @RestController
 @RequestMapping("/api/auth")
