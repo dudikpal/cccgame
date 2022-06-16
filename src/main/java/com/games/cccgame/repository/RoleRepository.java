@@ -10,5 +10,6 @@ import com.games.cccgame.models.Role;
 
 @Repository
 public interface RoleRepository extends MongoRepository <Role, Long> {
+
   Optional<Role> findByName(ERole name);
 }

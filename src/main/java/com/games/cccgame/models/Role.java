@@ -1,5 +1,6 @@
 package com.games.cccgame.models;
 
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -7,7 +8,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document("roles")
 public class Role {
   @Id
-  private Integer id;
+  private String id;
+  //private Integer id;
 
   /*@Enumerated(EnumType.STRING)
   @Column(length = 20)*/
@@ -21,11 +23,11 @@ public class Role {
     this.name = name;
   }
 
-  public Integer getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
   }
 
@@ -35,5 +37,13 @@ public class Role {
 
   public void setName(ERole name) {
     this.name = name;
+  }
+
+  @Override
+  public String toString() {
+    return "Role{" +
+      "_id=" + id +
+      ", name=" + name +
+      '}';
   }
 }

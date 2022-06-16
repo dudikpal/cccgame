@@ -18,7 +18,7 @@ import javax.validation.constraints.Size;
 public class User {
   @Id
   //@GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private String id;
 
   @NotBlank
   @Size(max = 20)
@@ -34,7 +34,7 @@ public class User {
   private String password;
 
   /*@ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "user_roles", 
+  @JoinTable(name = "user_roles",
              joinColumns = @JoinColumn(name = "user_id"),
              inverseJoinColumns = @JoinColumn(name = "role_id"))*/
   private Set<Role> roles = new HashSet<>();
@@ -48,11 +48,11 @@ public class User {
     this.password = password;
   }
 
-  public Long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(String id) {
     this.id = id;
   }
 

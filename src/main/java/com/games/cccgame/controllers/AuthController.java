@@ -97,11 +97,14 @@ public class AuthController {
 
     Set<String> strRoles = signUpRequest.getRole();
     Set<Role> roles = new HashSet<>();
-
     if (strRoles == null) {
-      Role userRole = roleRepository.findByName(ERole.ROLE_USER)
-          .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-      roles.add(userRole);
+      /*Role userRole = roleRepository.findByName(ERole.ROLE_USER)
+          .orElseThrow(() -> new RuntimeException("Error: Role is not found."));*/
+// int id/t kéne használni
+    System.out.println("strRoles: " + ERole.ROLE_USER);
+    System.out.println("strRoles by name: " + roleRepository.findByName(ERole.ROLE_USER).toString());
+      roles.add(new Role(ERole.ROLE_USER));
+      //roles.add(userRole);
     } else {
       strRoles.forEach(role -> {
         switch (role) {
@@ -124,9 +127,9 @@ public class AuthController {
         }
       });
     }
-
+    System.out.println("before setroles");
     user.setRoles(roles);
-    //userRepository.save(user);
+    userRepository.save(user);
 
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
