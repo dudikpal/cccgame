@@ -27,7 +27,7 @@ export class AuthGuardService implements CanActivate {
     async sendLoginDataToBack(username: string, password: string) {
 
         const reqBody = JSON.stringify({"username": username, "password": password});
-        const response = await fetch( this.urlPrefix + "api/auth/signin", {
+        const response = await fetch( this.urlPrefix + "/api/auth/signin", {
             method: 'POST',
             mode: 'cors',
             body: reqBody,

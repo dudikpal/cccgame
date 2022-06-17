@@ -22,7 +22,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @AllArgsConstructor
 @Configuration
-@EnableWebMvc
+//@EnableWebMvc
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
     // securedEnabled = true,
@@ -64,6 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
       .authorizeRequests().antMatchers("/api/auth/**").permitAll()
       .antMatchers("/api/test/**").permitAll()
       .antMatchers("/api/cards").permitAll()
+      .antMatchers("/").permitAll()
       .anyRequest().authenticated();
 
     http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
