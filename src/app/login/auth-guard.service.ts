@@ -8,7 +8,7 @@ export class AuthGuardService implements CanActivate {
 
     public token!: string | null;
     public isAuthenticated = false;
-    urlPrefix = environment.urlPrefix;
+    urlPrefix = 'https://cccgame.herokuapp.com';
 
     constructor(private _router: Router) {
     }
