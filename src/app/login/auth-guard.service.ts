@@ -35,7 +35,8 @@ export class AuthGuardService implements CanActivate {
                 "Content-Type": "application/json"
             }
         });
-        console.log('response: ' + response);
+        console.log('response: ');
+        console.log(response);
 
         if (response.status < 400) {
 
