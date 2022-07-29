@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>spring_security_with_angular</artifactId>
+    <artifactId>cccgame</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>spring_security_with_angular</name>
     <description>Demo project for Spring Boot</description>
