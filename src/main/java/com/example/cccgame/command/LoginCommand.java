@@ -1,4 +1,4 @@
-package com.example.spring_security_with_angular.command;
+package com.example.cccgame.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

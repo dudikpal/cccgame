@@ -1,10 +1,10 @@
-package com.example.spring_security_with_angular;
+package com.example.cccgame;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class SpringSecurityWithAngularApplicationTests {
+class CccGameApplicationTests {
 
     @Test
     void contextLoads() {

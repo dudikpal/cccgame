@@ -1,6 +1,6 @@
-package com.example.spring_security_with_angular;
+package com.example.cccgame;
 
-import com.example.spring_security_with_angular.command.LoginCommand;
+import com.example.cccgame.command.LoginCommand;
 import org.springframework.web.bind.annotation.*;
 
 @CrossOrigin(origins = "http://localhost:4200")

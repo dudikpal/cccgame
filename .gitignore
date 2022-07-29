@@ -1,7 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 #frontend
-/main/front
+/main/front/
 # compiled output
 /dist
 /tmp
@@ -47,7 +47,7 @@ testem.log
 Thumbs.db
 
 HELP.md
-target/
+/target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/

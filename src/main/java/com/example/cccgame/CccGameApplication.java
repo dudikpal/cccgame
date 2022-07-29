@@ -1,13 +1,13 @@
-package com.example.spring_security_with_angular;
+package com.example.cccgame;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringSecurityWithAngularApplication {
+public class CccGameApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringSecurityWithAngularApplication.class, args);
+        SpringApplication.run(CccGameApplication.class, args);
     }
 
 }
