@@ -1,4 +1,5 @@
-package com.example.cccgame;
+/*
+package com.games.cccgame;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,8 +19,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .anyRequest()
           //.and()
-          /*.formLogin()
-          .loginProcessingUrl("/login")*/
+          */
+/*.formLogin()
+          .loginProcessingUrl("/login")*//*
+
                 .authenticated()
                 .and()
                 .httpBasic()
@@ -27,3 +30,4 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
         ;
     }
 }
+*/

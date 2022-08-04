@@ -1,4 +1,5 @@
-package com.example.cccgame;
+/*
+package com.games.cccgame;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,3 +15,4 @@ public class AuthenticationBean {
         return String.format("Hello Bean message=%s", message);
     }
 }
+*/

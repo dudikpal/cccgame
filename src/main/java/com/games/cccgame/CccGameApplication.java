@@ -1,4 +1,4 @@
-package com.example.cccgame;
+package com.games.cccgame;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

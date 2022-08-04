@@ -1,7 +1,7 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
-
+src/main/resources/application.properties
 #frontend
-/main/front/
+/src/front/
 # compiled output
 /dist
 /tmp
@@ -66,6 +66,7 @@ HELP.md
 *.iws
 *.iml
 *.ipr
+.editorconfig
 
 ### NetBeans ###
 /nbproject/private/
@@ -79,3 +80,7 @@ build/
 
 ### VS Code ###
 .vscode/
+/src/front/
+/target/
+/src/test/
+/src/main/resources/static/

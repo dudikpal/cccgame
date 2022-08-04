@@ -1,4 +1,4 @@
-package com.example.cccgame.command;
+package com.games.cccgame.command;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
