@@ -21,7 +21,7 @@ public class CardController {
     @GetMapping
     //@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public String getAllCards() {
-
+        System.out.println("in card controller");
         return cardService.getAllCards();
     }
 
