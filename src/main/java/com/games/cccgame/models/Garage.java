@@ -21,8 +21,7 @@ public class Garage {
 
     private List <Card> cards;
 
-    public Garage(String ownerId, List <Card> cards) {
-        this.ownerId = ownerId;
+    public Garage(List <Card> cards) {
         this.cards = cards;
     }
 }

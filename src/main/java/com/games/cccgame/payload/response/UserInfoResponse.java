@@ -7,17 +7,20 @@ public class UserInfoResponse {
 	private String username;
 	private String email;
 	private List<String> roles;
+    private String garageId;
 	private String jwt;
 
 	public UserInfoResponse(String id,
                           String username,
                           String email,
                           List<String> roles,
+                          String garageId,
                           String jwt) {
 		this.id = id;
 		this.username = username;
 		this.email = email;
 		this.roles = roles;
+        this.garageId = garageId;
 		this.jwt = jwt;
 	}
 
@@ -49,5 +52,9 @@ public class UserInfoResponse {
 		return roles;
 	}
 
-	public String getJwt() { return jwt; }
+    public String getGarageId() {
+        return garageId;
+    }
+
+    public String getJwt() { return jwt; }
 }

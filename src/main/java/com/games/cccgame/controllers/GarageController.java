@@ -1,9 +1,8 @@
 package com.games.cccgame.controllers;
 
-import com.games.cccgame.command.GarageCommand;
 import com.games.cccgame.dtos.GarageDTO;
-import com.games.cccgame.models.User;
 import com.games.cccgame.security.jwt.JwtUtils;
+import com.games.cccgame.security.services.UserDetailsImpl;
 import com.games.cccgame.security.services.UserDetailsServiceImpl;
 import com.games.cccgame.services.GarageService;
 import lombok.AllArgsConstructor;
@@ -24,15 +23,14 @@ public class GarageController {
     private UserDetailsServiceImpl userService;
 
     @GetMapping
-    public GarageDTO getGarage(@RequestHeader(name="Authorization") String token) {
+    public GarageDTO getGarage() {
 
-        System.out.println("token: " + token);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl user = (UserDetailsImpl) auth.getPrincipal();
+        System.out.println(user);
+        GarageDTO garage = garageService.getGarage(user.getId());
 
-        System.out.println("Authentication: " + auth.getPrincipal());
-        GarageDTO garage = garageService.getGarage();
-
-        System.out.println(garage);
         return garage;
     }
+
 }

@@ -12,9 +12,9 @@ import java.util.List;
 @NoArgsConstructor
 public class GarageDTO {
 
-    private String garageId;
+    private String id;
 
-    private String garageOwnerId;
+    private String ownerId;
 
     private List <Card> cards;
 }
