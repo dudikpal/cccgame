@@ -1,6 +1,6 @@
 package com.games.cccgame.controllers;
 
-import com.games.cccgame.service.CardService;
+import com.games.cccgame.services.CardService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,9 +20,9 @@ public class CardController {
 
     @GetMapping
     //@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    public String getAllCards() {
+    public void getAllCards() {
         System.out.println("in card controller");
-        return cardService.getAllCards();
+        //return cardService.getAllCards();
     }
 
 

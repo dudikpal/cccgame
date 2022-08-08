@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import com.games.cccgame.models.Card;
+import com.games.cccgame.services.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
@@ -51,6 +53,9 @@ public class AuthController {
   RoleRepository roleRepository;
 
   @Autowired
+    CardService cardService;
+
+  @Autowired
   PasswordEncoder encoder;
 
   @Autowired
@@ -62,12 +67,13 @@ public class AuthController {
     Authentication authentication = authenticationManager
         .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
+      System.out.println(authentication);
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
     UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-
+      System.out.println(userDetails);
     ResponseCookie jwtCookie = jwtUtils.generateJwtCookie(userDetails);
-
+      System.out.println(jwtCookie);
     List<String> roles = userDetails.getAuthorities().stream()
         .map(item -> item.getAuthority())
         .collect(Collectors.toList());
