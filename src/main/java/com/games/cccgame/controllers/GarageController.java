@@ -28,7 +28,7 @@ public class GarageController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl user = (UserDetailsImpl) auth.getPrincipal();
         System.out.println(user);
-        GarageDTO garage = garageService.getGarage(user.getId());
+        GarageDTO garage = garageService.getGarage(user.getGarageId());
 
         return garage;
     }

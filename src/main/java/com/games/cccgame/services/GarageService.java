@@ -18,7 +18,7 @@ public class GarageService {
 
     public GarageDTO getGarage(String garageId) {
 
-        Garage garage = garageRepository.getGarageByOwnerId(garageId);
+        Garage garage = garageRepository.findById(garageId).get();
 
         return modelMapper.map(garage, GarageDTO.class);
     }

@@ -17,8 +17,6 @@ public class Garage {
     @Id
     private String id;
 
-    private String ownerId;
-
     private List <Card> cards;
 
     public Garage(List <Card> cards) {

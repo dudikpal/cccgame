@@ -14,7 +14,5 @@ public class GarageDTO {
 
     private String id;
 
-    private String ownerId;
-
     private List <Card> cards;
 }
