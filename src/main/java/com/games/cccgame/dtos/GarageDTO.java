@@ -14,5 +14,5 @@ public class GarageDTO {
 
     private String id;
 
-    private List <Card> cards;
+    private List <CardDTO> cards;
 }

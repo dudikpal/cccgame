@@ -1,4 +1,4 @@
-package com.games.cccgame.command;
+package com.games.cccgame.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GarageCommand {
+public class DataDTO<T> {
 
-    private String ownerId;
+    private String name;
+
+    private T value;
 }
