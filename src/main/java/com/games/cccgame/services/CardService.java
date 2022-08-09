@@ -65,6 +65,7 @@ public class CardService {
         Card card = cardRepository.findById(command.getId())
             .orElseThrow(() -> new IllegalArgumentException("Cannot fond card with this id: " + command.getId()));
 
+        card = modelMapper.map(command, Card.class);
         cardRepository.save(card);
 
         return DTOMapper.CardToCardDTO(card);
