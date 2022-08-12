@@ -18,16 +18,11 @@ public class GarageController {
 
     private GarageService garageService;
 
-    private JwtUtils jwtUtils;
-
-    private UserDetailsServiceImpl userService;
-
     @GetMapping
     public GarageDTO getGarage() {
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl user = (UserDetailsImpl) auth.getPrincipal();
-        System.out.println(user);
         GarageDTO garage = garageService.getGarage(user.getGarageId());
 
         return garage;

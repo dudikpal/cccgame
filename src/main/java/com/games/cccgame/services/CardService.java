@@ -8,21 +8,22 @@ import com.games.cccgame.command.CreateCardCommand;
 import com.games.cccgame.command.UpdateCardCommand;
 import com.games.cccgame.dtos.CardDTO;
 import com.games.cccgame.dtos.FindCardsParams;
-import com.games.cccgame.mapper.DTOMapper;
+import com.games.cccgame.mapper.CardMapper;
 import com.games.cccgame.models.Card;
 import com.games.cccgame.repository.CardRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -37,13 +38,23 @@ public class CardService {
 
     private ObjectMapper objectMapper;
 
+    @Autowired
+    private CardMapper cardMapper;
+
     private MongoTemplate mongoTemplate;
 
-    public List <CardDTO> getAllCards() {
+    public List <CardDTO> getCard(Optional <String> cardId) {
 
-        return cardRepository.findAll().stream()
-            .map(card -> DTOMapper.CardToCardDTO(card))
-            .toList();
+        if (cardId.isEmpty()) {
+
+            return cardRepository.findAll().stream()
+                .map(card -> cardMapper.CardToCardDTO(card))
+                .toList();
+        }
+
+        return cardRepository.findById(cardId.get())
+            .map(card -> cardMapper.CardToCardDTO(card))
+            .stream().toList();
     }
 
     public CardDTO createCard(CreateCardCommand command) {
@@ -56,7 +67,7 @@ public class CardService {
             cardRepository.save(card);
         }
 
-        return DTOMapper.CardToCardDTO(card);
+        return cardMapper.CardToCardDTO(card);
     }
 
     @Transactional
@@ -68,7 +79,7 @@ public class CardService {
         card = modelMapper.map(command, Card.class);
         cardRepository.save(card);
 
-        return DTOMapper.CardToCardDTO(card);
+        return cardMapper.CardToCardDTO(card);
     }
 
 
@@ -134,14 +145,13 @@ public class CardService {
             query.addCriteria(new Criteria().orOperator(criterias.toArray(new Criteria[criterias.size()])));
 
             filteredCards.addAll(Arrays.stream(mongoTemplate.find(query, Card.class).toArray())
-                .map(c -> DTOMapper.CardToCardDTO((Card) c))
+                .map(c -> cardMapper.CardToCardDTO((Card) c))
                 .collect(Collectors.toList()));
 
             return filteredCards;
         }
 
-
-        return getAllCards();
+        return getCard(Optional.empty());
     }
 
 

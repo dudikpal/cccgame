@@ -2,6 +2,7 @@ package com.games.cccgame.models;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,6 +13,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Document("users"/*,
@@ -100,14 +102,4 @@ public class User {
         this.roles = roles;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-            "id='" + id + '\'' +
-            ", username='" + username + '\'' +
-            ", email='" + email + '\'' +
-            ", password='" + password + '\'' +
-            ", roles=" + roles +
-            '}';
-    }
 }

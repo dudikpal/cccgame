@@ -8,24 +8,29 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Document("garages")
-public class Garage {
+@Document("playercards")
+public class PlayerCard {
 
     @Id
     private String id;
 
-    private List <String> playerCards;
+    private String cardId;
+
+    private int tuningWeight = 1;
+
+    private int tuningEngine = 1;
+
+    private int tuningHandle = 1;
 
     private LocalDate createdAt;
 
-    public Garage(List <String> playerCards, LocalDate createdAt) {
-        this.playerCards = playerCards;
+    public PlayerCard(String cardId, LocalDate createdAt) {
+        this.cardId = cardId;
         this.createdAt = createdAt;
     }
 }

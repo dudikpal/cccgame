@@ -1,21 +1,27 @@
 package com.games.cccgame.dtos;
 
-import com.games.cccgame.models.Card;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GarageDTO {
+public class PlayerCardDTO {
 
+    @Id
     private String id;
 
-    private List <PlayerCardDTO> playerCards;
+    private CardDTO card;
+
+    private int tuningWeight;
+
+    private int tuningEngine;
+
+    private int tuningHandle;
 
     private LocalDate createdAt;
 }
