@@ -1,7 +1,9 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
-src/main/resources/application.properties
+application.properties
 #frontend
 /src/front/
+/src/main/resources/application.properties
+/src/main/resources/application-dev.properties
 # compiled output
 /dist
 /tmp
