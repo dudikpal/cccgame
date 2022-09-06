@@ -80,7 +80,7 @@ public class AuthController {
         return ResponseEntity.ok()
             .header(HttpHeaders.SET_COOKIE, jwtCookie.toString())
             .body(new UserInfoResponse(
-                userDetails.getId(),
+                userDetails.getUserId(),
                 userDetails.getUsername(),
                 userDetails.getEmail(),
                 roles,

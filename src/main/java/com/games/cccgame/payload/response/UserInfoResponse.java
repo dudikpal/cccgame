@@ -3,20 +3,20 @@ package com.games.cccgame.payload.response;
 import java.util.List;
 
 public class UserInfoResponse {
-	private String id;
+	private String userId;
 	private String username;
 	private String email;
 	private List<String> roles;
     private String garageId;
 	private String jwt;
 
-	public UserInfoResponse(String id,
+	public UserInfoResponse(String userId,
                           String username,
                           String email,
                           List<String> roles,
                           String garageId,
                           String jwt) {
-		this.id = id;
+		this.userId = userId;
 		this.username = username;
 		this.email = email;
 		this.roles = roles;
@@ -24,12 +24,12 @@ public class UserInfoResponse {
 		this.jwt = jwt;
 	}
 
-	public String getId() {
-		return id;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getEmail() {
