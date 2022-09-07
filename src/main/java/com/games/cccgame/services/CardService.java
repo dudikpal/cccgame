@@ -122,7 +122,7 @@ public class CardService {
     }
 
 
-    public List <CardDTO> findCards(String command) {
+    public List <CardDTO> findCardsByCriterias(String command) {
 
         FindCardsParams findParams = stringToParams(command);
 

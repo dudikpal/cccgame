@@ -28,6 +28,8 @@ public class GarageService {
 
     private PlayerCardService playerCardService;
 
+    private CardService cardService;
+
     @Autowired
     private GarageMapper garageMapper;
 
@@ -43,8 +45,13 @@ public class GarageService {
 
         Garage garage = new Garage(List.of(), LocalDate.now());
         List<String> playerCards = new ArrayList <>();
-        playerCards.add(playerCardService.createPlayerCard("c_2-i-turbo-231hp-8302").getId());
-        playerCards.add(playerCardService.createPlayerCard("c_0-tsi-evo-300hp-dsg-42357").getId());
+
+        for ( CardDTO cardDTO : cardService.getCard(Optional.empty())) {
+            playerCards.add(playerCardService.createPlayerCard(cardDTO.getId().getValue().toString()).getId());
+        }
+
+        //playerCards.add(playerCardService.createPlayerCard("c_2-i-turbo-231hp-8302").getId());
+        //playerCards.add(playerCardService.createPlayerCard("c_0-tsi-evo-300hp-dsg-42357").getId());
         garage.setPlayerCards(playerCards);
         garageRepository.save(garage);
 

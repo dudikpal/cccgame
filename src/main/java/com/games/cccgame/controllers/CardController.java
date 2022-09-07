@@ -21,6 +21,7 @@ public class CardController {
     private CardService cardService;
 
     @GetMapping
+    // without param get all cards
     //@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public List <CardDTO> getCard(@RequestBody Optional<String> cardId) {
         return cardService.getCard(cardId);
@@ -71,9 +72,9 @@ public class CardController {
 
 
     @PostMapping("/find")
-    public List<CardDTO> findCards(@RequestBody String command) {
+    public List<CardDTO> findCardsByCriterias(@RequestBody String command) {
 
-        return cardService.findCards(command);
+        return cardService.findCardsByCriterias(command);
     }
 
 }
