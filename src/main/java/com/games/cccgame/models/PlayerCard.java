@@ -25,7 +25,17 @@ public class PlayerCard {
 
     private int tuningEngine = 1;
 
-    private int tuningHandle = 1;
+    private int tuningCornering = 1;
+
+    private int winRatio;
+
+    private String[] tags;
+
+    private int cornering;
+
+    private double hpPerKg;
+
+    private int sellingValue;
 
     private LocalDate createdAt;
 

@@ -16,14 +16,13 @@ public class PlayerCardMapper {
 
     public PlayerCardDTO playerCardToDTO(PlayerCard playerCard) {
 
-        PlayerCardDTO playerCardDTO = new PlayerCardDTO(
-            playerCard.getId(),
-            cardService.getCard(Optional.of(playerCard.getCardId())).get(0),
-            playerCard.getTuningWeight(),
-            playerCard.getTuningEngine(),
-            playerCard.getTuningHandle(),
-            playerCard.getCreatedAt()
-        );
+        PlayerCardDTO playerCardDTO = new PlayerCardDTO();
+            playerCardDTO.getId().setValue("p_" + playerCard.getId());
+            playerCardDTO.getCard().setValue(cardService.getCard(Optional.of(playerCard.getCardId())).get(0));
+            playerCardDTO.getTuningWeight().setValue(playerCard.getTuningWeight());
+            playerCardDTO.getTuningEngine().setValue(playerCard.getTuningEngine());
+            playerCardDTO.getTuningCornering().setValue(playerCard.getTuningCornering());
+            playerCardDTO.getCreatedAt().setValue(playerCard.getCreatedAt());
 
         return playerCardDTO;
     }

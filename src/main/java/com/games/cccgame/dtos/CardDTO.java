@@ -59,7 +59,7 @@ public class CardDTO {
 
     private DataDTO imageUrl = new DataDTO <String>("Car image URL", null);
 
-    private DataDTO logoURL = new DataDTO <String>("Manufacturer Logo URL", null);
+    private DataDTO logoURL = new DataDTO <String>("Manufacturer Logo (assets/img/)", null);
 
     private DataDTO carPageUrl = new DataDTO <String>("Car page Url", null);
 

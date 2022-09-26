@@ -36,6 +36,7 @@ public class GarageService {
     public GarageDTO getGarage(String garageId) {
 
         Garage garage = garageRepository.findById(garageId).get();
+
         GarageDTO garageDTO = garageMapper.garageToDTO(garage);
 
         return garageDTO;
@@ -44,17 +45,20 @@ public class GarageService {
     public GarageDTO createGarage() {
 
         Garage garage = new Garage(List.of(), LocalDate.now());
-        List<String> playerCards = new ArrayList <>();
+        //List<String> playerCards = new ArrayList <>();
+        List<String> cardDTOS = new ArrayList <>();
 
         for ( CardDTO cardDTO : cardService.getCard(Optional.empty())) {
-            playerCards.add(playerCardService.createPlayerCard(cardDTO.getId().getValue().toString()).getId());
+            //playerCards.add(playerCardService.createPlayerCard(cardDTO.getId().getValue().toString()).getId());
+            cardDTOS.add(cardDTO.getId().getValue().toString());
         }
 
         //playerCards.add(playerCardService.createPlayerCard("c_2-i-turbo-231hp-8302").getId());
         //playerCards.add(playerCardService.createPlayerCard("c_0-tsi-evo-300hp-dsg-42357").getId());
-        garage.setPlayerCards(playerCards);
+        //garage.setPlayerCards(playerCards);
+        garage.setPlayerCards(cardDTOS);
         garageRepository.save(garage);
-
+// nullt küld el
         return garageMapper.garageToDTO(garage);
     }
 }

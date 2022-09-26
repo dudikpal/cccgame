@@ -13,15 +13,15 @@ import java.time.LocalDate;
 public class PlayerCardDTO {
 
     @Id
-    private String id;
+    private DataDTO id = new DataDTO("ID", null);
 
-    private CardDTO card;
+    private DataDTO card = new DataDTO("Card", null);
 
-    private int tuningWeight;
+    private DataDTO tuningWeight = new DataDTO("Weight tuning", null);
 
-    private int tuningEngine;
+    private DataDTO tuningEngine = new DataDTO("Engine tuning", null);
 
-    private int tuningHandle;
+    private DataDTO tuningCornering = new DataDTO("Cornering tuning", null);
 
-    private LocalDate createdAt;
+    private DataDTO createdAt = new DataDTO("Created date", null);
 }
