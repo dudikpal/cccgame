@@ -74,7 +74,9 @@ public class CardController {
     @PostMapping("/find")
     public List<CardDTO> findCardsByCriterias(@RequestBody String command) {
 
-        return cardService.findCardsByCriterias(command);
+        List<CardDTO> d = cardService.findCardsByCriterias(command);
+        System.out.println(d);
+        return d;
     }
 
 }
