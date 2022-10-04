@@ -21,8 +21,4 @@ public enum ETuningMultiplier {
     public double getMultiplier() {
         return multiplier;
     }
-
-    /*public List <Map.Entry<String, Double>> getEntries() {
-
-    }*/
 }

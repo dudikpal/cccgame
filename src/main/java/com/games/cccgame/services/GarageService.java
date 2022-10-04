@@ -48,17 +48,17 @@ public class GarageService {
         //List<String> playerCards = new ArrayList <>();
         List<String> cardDTOS = new ArrayList <>();
 
-        for ( CardDTO cardDTO : cardService.getCard(Optional.empty())) {
+        /*for ( CardDTO cardDTO : cardService.getCard(Optional.empty())) {
             //playerCards.add(playerCardService.createPlayerCard(cardDTO.getId().getValue().toString()).getId());
             cardDTOS.add(cardDTO.getId().getValue().toString());
-        }
+        }*/
 
-        //playerCards.add(playerCardService.createPlayerCard("c_2-i-turbo-231hp-8302").getId());
-        //playerCards.add(playerCardService.createPlayerCard("c_0-tsi-evo-300hp-dsg-42357").getId());
-        //garage.setPlayerCards(playerCards);
+        cardDTOS.add(playerCardService.createPlayerCard("c_2-i-turbo-231hp-8302").getId().getValue().toString()/*.substring(2)*/);
+        cardDTOS.add(playerCardService.createPlayerCard("c_0-tsi-evo-300hp-dsg-42357").getId().getValue().toString()/*.substring(2)*/);
+
         garage.setPlayerCards(cardDTOS);
         garageRepository.save(garage);
-// nullt küld el
+
         return garageMapper.garageToDTO(garage);
     }
 }

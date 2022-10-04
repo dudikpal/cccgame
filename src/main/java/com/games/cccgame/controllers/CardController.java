@@ -3,6 +3,7 @@ package com.games.cccgame.controllers;
 import com.games.cccgame.command.CreateCardCommand;
 import com.games.cccgame.command.UpdateCardCommand;
 import com.games.cccgame.dtos.CardDTO;
+import com.games.cccgame.dtos.PlayerCardDTO;
 import com.games.cccgame.services.CardService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -75,7 +76,6 @@ public class CardController {
     public List<CardDTO> findCardsByCriterias(@RequestBody String command) {
 
         List<CardDTO> d = cardService.findCardsByCriterias(command);
-        System.out.println(d);
         return d;
     }
 

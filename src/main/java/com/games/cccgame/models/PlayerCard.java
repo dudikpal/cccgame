@@ -43,4 +43,10 @@ public class PlayerCard {
         this.cardId = cardId;
         this.createdAt = createdAt;
     }
+
+    public PlayerCard(String id, String cardId, LocalDate createdAt) {
+        this.id = id;
+        this.cardId = cardId;
+        this.createdAt = createdAt;
+    }
 }
