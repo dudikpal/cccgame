@@ -24,8 +24,8 @@ public class CardController {
     @GetMapping
     // without param get all cards
     //@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    public List <CardDTO> getCard(@RequestBody Optional<String> cardId) {
-        return cardService.getCard(cardId);
+    public List <CardDTO> getCards(@RequestBody Optional<String> cardId) {
+        return cardService.getCards();
     }
 
 

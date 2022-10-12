@@ -57,9 +57,9 @@ public class CardDTO {
 
     private DataDTO tractionControl = new DataDTO <String>("Traction control", null);
 
-    private DataDTO imageUrl = new DataDTO <String>("Car image URL", null);
+    private DataDTO imageUrl = new DataDTO <String>("Car image URL", "assets/img/placeholder.jpg");
 
-    private DataDTO logoURL = new DataDTO <String>("Manufacturer Logo (assets/img/)", null);
+    private DataDTO logoURL = new DataDTO <String>("Manufacturer Logo (assets/img/)", "placeholder.png");
 
     private DataDTO carPageUrl = new DataDTO <String>("Car page Url", null);
 

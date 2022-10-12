@@ -4,8 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.games.cccgame.dtos.CardDTO;
+import com.games.cccgame.dtos.DataDTO;
 import com.games.cccgame.dtos.FindCardsParams;
 import com.games.cccgame.dtos.PlayerCardDTO;
+import com.games.cccgame.mapper.CardMapper;
 import com.games.cccgame.mapper.PlayerCardMapper;
 import com.games.cccgame.models.Card;
 import com.games.cccgame.models.PlayerCard;
@@ -43,6 +45,8 @@ public class PlayerCardService {
     @Autowired
     private PlayerCardMapper playerCardMapper;
 
+    private CardMapper cardMapper;
+
     public PlayerCardDTO getPlayerCard(String playerCardId) {
 
         PlayerCard playerCard = playerCardRepository.findById(playerCardId).get();
@@ -53,8 +57,9 @@ public class PlayerCardService {
 
     public PlayerCardDTO createPlayerCard(String cardId) {
 
+        Card card = cardService.getCard(cardId);
         PlayerCard playerCard = playerCardRepository
-            .save(new PlayerCard(cardId, LocalDate.now()));
+            .save(new PlayerCard(card, LocalDate.now()));
 
         return playerCardMapper.playerCardToDTO(playerCard);
     }
@@ -66,7 +71,8 @@ public class PlayerCardService {
         List<PlayerCardDTO> s = new ArrayList <>();
 
         for (CardDTO cardDTO : cardDTOS) {
-            s.add(playerCardMapper.playerCardToDTO(new PlayerCard("p_" + ++counter, cardDTO.getId().getValue().toString(), LocalDate.now())));
+            s.add(playerCardMapper.playerCardToDTO(new PlayerCard(cardMapper.CardDTOToCard(cardDTO), LocalDate.now())));
+            //s.add(playerCardMapper.playerCardToDTO(new PlayerCard("p_" + ++counter, cardDTO.getId().getValue().toString(), LocalDate.now())));
         }
 
 
@@ -104,22 +110,22 @@ public class PlayerCardService {
 
             for (Object cardObject : Arrays.stream(mongoTemplate.find(query, Card.class).toArray()).toList()) {
                 Card card = (Card) cardObject;
-                PlayerCard playerCard = new PlayerCard(card.getId(), LocalDate.now());
+                PlayerCard playerCard = new PlayerCard(card, LocalDate.now());
                 filteredCards.add(playerCardMapper.playerCardToDTO(playerCard));
             }
 
             return filteredCards;
         }
 
-        for (CardDTO cardDTO : cardService.getCard(Optional.empty())) {
+        for (CardDTO cardDTO : cardService.getCards()) {
 
-            PlayerCard playerCard = new PlayerCard(cardDTO.getId().getValue().toString(), LocalDate.now());
+            PlayerCard playerCard = new PlayerCard(cardMapper.CardDTOToCard(cardDTO), LocalDate.now());
             filteredCards.add(playerCardMapper.playerCardToDTO(playerCard));
         }
 
         return filteredCards;
     }
-
+// a plazercardok csak a garageben legzenek mentve!!!
 
     private List <Criteria> betweensCriterias(JsonNode betweensValues) {
 
@@ -290,5 +296,14 @@ public class PlayerCardService {
         }
 
         return checkedFields;
+    }
+
+    public PlayerCardDTO getPlayerCardSkeleton() {
+
+        CardDTO cardDTO = new CardDTO();
+        PlayerCardDTO playerCardDTO = new PlayerCardDTO();
+        playerCardDTO.setCard(new DataDTO("card", cardDTO));
+
+        return playerCardDTO;
     }
 }

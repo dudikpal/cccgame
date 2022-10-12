@@ -22,6 +22,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -47,18 +48,17 @@ public class CardService {
 
     private MongoTemplate mongoTemplate;
 
-    public List <CardDTO> getCard(Optional <String> cardId) {
+    public List <CardDTO> getCards() {
 
-        if (cardId.isEmpty()) {
-
-            return cardRepository.findAll().stream()
-                .map(card -> cardMapper.CardToCardDTO(card))
-                .toList();
-        }
-
-        return cardRepository.findById(cardId.get())
+        return cardRepository.findAll().stream()
             .map(card -> cardMapper.CardToCardDTO(card))
-            .stream().toList();
+            .toList();
+
+    }
+
+    public Card getCard(String cardId) {
+
+        return cardRepository.findById(cardId).orElseThrow(() -> new IllegalArgumentException("Cannot find card with this ID"));
     }
 
     public CardDTO createCard(CreateCardCommand command) {
@@ -340,7 +340,7 @@ public class CardService {
         }
 
         return checkedFields;*/
-        return getCard(Optional.empty());
+        return getCards();
     }
 
 

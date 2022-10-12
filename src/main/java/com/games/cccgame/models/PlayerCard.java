@@ -19,7 +19,7 @@ public class PlayerCard {
     @Id
     private String id;
 
-    private String cardId;
+    private Card card;
 
     private int tuningWeight = 1;
 
@@ -39,14 +39,14 @@ public class PlayerCard {
 
     private LocalDate createdAt;
 
-    public PlayerCard(String cardId, LocalDate createdAt) {
-        this.cardId = cardId;
+    public PlayerCard(Card card, LocalDate createdAt) {
+        this.card = card;
         this.createdAt = createdAt;
     }
 
-    public PlayerCard(String id, String cardId, LocalDate createdAt) {
+    public PlayerCard(String id, Card card, LocalDate createdAt) {
         this.id = id;
-        this.cardId = cardId;
+        this.card = card;
         this.createdAt = createdAt;
     }
 }

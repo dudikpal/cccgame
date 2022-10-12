@@ -10,10 +10,15 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:4200"/*, allowedHeaders = "*", allowCredentials = "true"*/)
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/playerCards")
+@RequestMapping("/api/playercards")
 public class PlayerCardController {
 
     private PlayerCardService playerCardService;
+
+    @GetMapping
+    public PlayerCardDTO getPlayerCardSkeleton() {
+        return playerCardService.getPlayerCardSkeleton();
+    }
 
     @PostMapping
     public List <PlayerCardDTO> getPlayerCardsToAdmin(@RequestBody String command) {

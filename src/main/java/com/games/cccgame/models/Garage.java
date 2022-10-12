@@ -20,11 +20,11 @@ public class Garage {
     @Id
     private String id;
 
-    private List <String> playerCards;
+    private List <PlayerCard> playerCards;
 
     private LocalDate createdAt;
 
-    public Garage(List <String> playerCards, LocalDate createdAt) {
+    public Garage(List <PlayerCard> playerCards, LocalDate createdAt) {
         this.playerCards = playerCards;
         this.createdAt = createdAt;
     }

@@ -5,6 +5,7 @@ import com.games.cccgame.dtos.GarageDTO;
 import com.games.cccgame.dtos.PlayerCardDTO;
 import com.games.cccgame.models.ETuningMultiplier;
 import com.games.cccgame.models.Garage;
+import com.games.cccgame.models.PlayerCard;
 import com.games.cccgame.services.PlayerCardService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -20,12 +21,14 @@ public class GarageMapper {
 
     private PlayerCardService playerCardService;
 
+    private PlayerCardMapper playerCardMapper;
+
     public GarageDTO garageToDTO(Garage garage) {
 
         List <PlayerCardDTO> playerCardDTOS = new ArrayList <>();
 
-        for (String playerCardId : garage.getPlayerCards()) {
-            playerCardDTOS.add(playerCardService.getPlayerCard(playerCardId));
+        for (PlayerCard playerCard : garage.getPlayerCards()) {
+            playerCardDTOS.add(playerCardMapper.playerCardToDTO(playerCard));
         }
 
         GarageDTO garageDTO = new GarageDTO(
