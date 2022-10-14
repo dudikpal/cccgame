@@ -1,14 +1,20 @@
 package com.games.cccgame.controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.games.cccgame.command.CreateCardCommand;
 import com.games.cccgame.command.UpdateCardCommand;
 import com.games.cccgame.dtos.CardDTO;
 import com.games.cccgame.dtos.PlayerCardDTO;
 import com.games.cccgame.services.CardService;
 import lombok.AllArgsConstructor;
+import org.apache.catalina.connector.Request;
+import org.apache.catalina.connector.RequestFacade;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +26,8 @@ import java.util.Optional;
 public class CardController {
 
     private CardService cardService;
+
+    private ObjectMapper objectMapper;
 
     @GetMapping
     // without param get all cards

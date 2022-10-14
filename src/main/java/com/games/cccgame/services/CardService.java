@@ -65,9 +65,9 @@ public class CardService {
 
         Card card = new Card();
 
-        if (!cardRepository.existsById(command.getId())) {
+        if (!cardRepository.existsById(command.getId().getValue().toString())) {
 
-            card = modelMapper.map(command, Card.class);
+            card = cardMapper.CardDTOToCard(modelMapper.map(command, CardDTO.class));
             cardRepository.save(card);
         }
 
@@ -106,10 +106,11 @@ public class CardService {
             List <Card> cardList = mapper.readValue(cardsJson, new TypeReference <List <Card>>() {
             });
 
-            for (Card card : cardList) {
+            /*for (Card card : cardList) {
 
                 if (cardRepository.findById(card.getId()).isEmpty()) {
 
+                    //String createCardCommand = card.toString();
                     CreateCardCommand createCardCommand = modelMapper.map(card, CreateCardCommand.class);
                     cardDTOs.add(createCard(createCardCommand));
                 } else {
@@ -117,7 +118,7 @@ public class CardService {
                     UpdateCardCommand updateCardCommand = modelMapper.map(card, UpdateCardCommand.class);
                     cardDTOs.add(updateCard(updateCardCommand));
                 }
-            }
+            }*/
         } catch (IOException e) {
             e.printStackTrace();
         }

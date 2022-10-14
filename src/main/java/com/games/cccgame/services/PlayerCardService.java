@@ -76,7 +76,7 @@ public class PlayerCardService {
         }
 
 
-        System.out.println(s);
+        //System.out.println(s);
         return s;
     }
 

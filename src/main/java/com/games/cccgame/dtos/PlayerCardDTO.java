@@ -13,7 +13,7 @@ import java.time.LocalDate;
 public class PlayerCardDTO {
 
     @Id
-    private DataDTO id = new DataDTO <String>("ID", "empty");
+    private DataDTO id = new DataDTO <String>("ID", null);
 
     private DataDTO card = new DataDTO <CardDTO>("Card", null);
 
