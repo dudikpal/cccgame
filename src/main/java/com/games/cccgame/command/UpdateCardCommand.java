@@ -1,5 +1,6 @@
 package com.games.cccgame.command;
 
+import com.games.cccgame.dtos.DataDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,79 +10,79 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateCardCommand {
 
-    private String id;
+    private DataDTO id = new DataDTO <String>("ID", null);
 
-    private String manufacturer;
+    private DataDTO manufacturer = new DataDTO <String>("Manufacturer", null);
 
-    private String type;
+    private DataDTO type = new DataDTO <String>("Car type", null);
 
-    private Integer year;
+    private DataDTO year = new DataDTO <Integer>("Year", null);
 
-    private String country;
+    private DataDTO country = new DataDTO <String>("Country", null);
 
-    private Integer doors;
+    private DataDTO doors = new DataDTO <Integer>("Doors", null);
 
-    private String body;
+    private DataDTO body = new DataDTO <String>("Body type", null);
 
-    private Integer seats;
+    private DataDTO seats = new DataDTO <Integer>("Seats", null);
 
-    private String driveWheel;
+    private DataDTO driveWheel = new DataDTO <String>("Drive wheel", null);
 
-    private String fuelType;
+    private DataDTO fuelType = new DataDTO <String>("Fuel type", null);
 
-    private Integer fuelTankCapacity;
+    private DataDTO fuelTankCapacity = new DataDTO <Integer>("Fuel tank (lit.)", null);
 
-    private Integer engineCapacity;
+    private DataDTO engineCapacity = new DataDTO <Integer>("Engine capacity (cm<sup>3</sup>)", null);
 
-    private Integer powerKW;
+    private DataDTO powerKW = new DataDTO <Integer>("Power (KW)", null);
 
-    private Integer powerHP;
+    private DataDTO powerHP = new DataDTO <Integer>("Power (HP)", null);
 
-    private Integer maxTorque;
+    private DataDTO maxTorque = new DataDTO <Integer>("Max Torque (Nm)", null);
 
-    private Integer topSpeed;
+    private DataDTO topSpeed = new DataDTO <Integer>("Top speed (km/h)", null);
 
-    private Double acceleration;
+    private DataDTO acceleration = new DataDTO <Double>("0-100 km/h (sec)", null);
 
-    private Integer weight;
+    private DataDTO weight = new DataDTO <Integer>("Weight (kg)", null);
 
-    private Integer length;
+    private DataDTO length = new DataDTO <Integer>("Length (mm)", null);
 
-    private Integer width;
+    private DataDTO width = new DataDTO <Integer>("Width (mm)", null);
 
-    private Integer height;
+    private DataDTO height = new DataDTO <Integer>("Height (mm)", null);
 
-    private Integer groundClearance;
+    private DataDTO groundClearance = new DataDTO <Integer>("Ground clearence (mm)", null);
 
-    private String abs;
+    private DataDTO abs = new DataDTO <String>("ABS", null);
 
-    private String tractionControl;
+    private DataDTO tractionControl = new DataDTO <String>("Traction control", null);
 
-    private String imageUrl;
+    private DataDTO imageUrl = new DataDTO <String>("Car image URL", "assets/img/placeholder.jpg");
 
-    private String logoURL;
+    private DataDTO logoURL = new DataDTO <String>("Manufacturer Logo (assets/img/)", "placeholder.png");
 
-    private String carPageUrl;
+    private DataDTO carPageUrl = new DataDTO <String>("Car page Url", null);
 
-    private String objectPositionHorizontal;
+    private DataDTO objectPositionHorizontal = new DataDTO <String>("Object horizontal position", null);
 
-    private String objectPositionVertical;
+    private DataDTO objectPositionVertical = new DataDTO <String>("Object vertical position", null);
 
-    private String objectWidth;
+    private DataDTO objectWidth = new DataDTO <String>("Object width", null);
 
-    private String objectHeight;
+    private DataDTO objectHeight = new DataDTO <String>("Object height", null);
 
-    private Double gear1st;
+    private DataDTO gear1st = new DataDTO <Double>("1st gear", null);
 
-    private Double gear2nd;
+    private DataDTO gear2nd = new DataDTO <Double>("2nd gear", null);
 
-    private Double gear3rd;
+    private DataDTO gear3rd = new DataDTO <Double>("3rd gear", null);
 
-    private Double gear4th;
+    private DataDTO gear4th = new DataDTO <Double>("4th gear", null);
 
-    private Double gear5th;
+    private DataDTO gear5th = new DataDTO <Double>("5th gear", null);
 
-    private Double gear6th;
+    private DataDTO gear6th = new DataDTO <Double>("6th gear", null);
 
-    private Double finalDrive;
+    private DataDTO finalDrive = new DataDTO <Double>("Final drive", null);
 }

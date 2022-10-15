@@ -46,6 +46,9 @@ public class CardService {
     @Autowired
     private CardMapper cardMapper;
 
+    @Autowired
+    private PlayerCardMapper playerCardMapper;
+
     private MongoTemplate mongoTemplate;
 
     public List <CardDTO> getCards() {
@@ -77,13 +80,18 @@ public class CardService {
     @Transactional
     public CardDTO updateCard(UpdateCardCommand command) {
 
-        Card card = cardRepository.findById(command.getId())
-            .orElseThrow(() -> new IllegalArgumentException("Cannot fond card with this id: " + command.getId()));
+        Card card = cardRepository.findById(command.getId().getValue().toString())
+            .orElseThrow(() -> new IllegalArgumentException("Cannot fond card with this id: " + command.getId().getValue().toString()));
 
-        card = modelMapper.map(command, Card.class);
-        cardRepository.save(card);
+        if (card != null) {
 
-        return cardMapper.CardToCardDTO(card);
+            card = cardMapper.CardDTOToCard(modelMapper.map(command, CardDTO.class));
+            cardRepository.save(card);
+
+            return cardMapper.CardToCardDTO(card);
+        }
+
+        return null;
     }
 
 
@@ -127,9 +135,9 @@ public class CardService {
     }
 
 
-    public List <CardDTO> findCardsByCriterias(String command) {
+    public List <PlayerCardDTO> findCardsByCriterias(String command) {
 
-    /*    FindCardsParams findParams = stringToParams(command);
+        FindCardsParams findParams = stringToParams(command);
         List <PlayerCardDTO> filteredCards = new ArrayList <>();
 
         if (!findParamsIsEmpty(findParams)) {
@@ -149,22 +157,22 @@ public class CardService {
 
             query.addCriteria(new Criteria().orOperator(criterias.toArray(new Criteria[criterias.size()])));
 
-            *//*filteredCards.addAll(Arrays.stream(mongoTemplate.find(query, Card.class).toArray())
-                .map(c -> playerCardMapper.playerCardToDTO(new PlayerCard(cardMapper.CardToCardDTO((Card) c).getId().getValue().toString(), LocalDate.now())))
-                .collect(Collectors.toList()));*//*
+            filteredCards.addAll(Arrays.stream(mongoTemplate.find(query, Card.class).toArray())
+                .map(c -> playerCardMapper.playerCardToDTO(new PlayerCard((Card) c, LocalDate.now())))
+                .collect(Collectors.toList()));
 
             for (Object cardObject : Arrays.stream(mongoTemplate.find(query, Card.class).toArray()).toList()) {
                 Card card = (Card) cardObject;
-                PlayerCard playerCard = new PlayerCard(card.getId(), LocalDate.now());
+                PlayerCard playerCard = new PlayerCard(card, LocalDate.now());
                 filteredCards.add(playerCardMapper.playerCardToDTO(playerCard));
             }
 
             return filteredCards;
         }
 
-        for (CardDTO cardDTO : getCard(Optional.empty())) {
+        for (CardDTO cardDTO : getCards()) {
 
-            PlayerCard playerCard = new PlayerCard(cardDTO.getId().getValue().toString(), LocalDate.now());
+            PlayerCard playerCard = new PlayerCard(cardMapper.CardDTOToCard(cardDTO), LocalDate.now());
             filteredCards.add(playerCardMapper.playerCardToDTO(playerCard));
         }
 
@@ -340,8 +348,8 @@ public class CardService {
             checkedFields.add(m.group());
         }
 
-        return checkedFields;*/
-        return getCards();
+        return checkedFields;
+        //return getCards();
     }
 
 

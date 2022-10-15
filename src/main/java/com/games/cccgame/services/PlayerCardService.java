@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -44,8 +45,6 @@ public class PlayerCardService {
 
     @Autowired
     private PlayerCardMapper playerCardMapper;
-
-    private CardMapper cardMapper;
 
     public PlayerCardDTO getPlayerCard(String playerCardId) {
 
@@ -66,28 +65,22 @@ public class PlayerCardService {
 
     public List<PlayerCardDTO> getPlayerCardsToAdmin(String command) {
 
-        List<CardDTO> cardDTOS = cardService.findCardsByCriterias(command).stream().toList();
-        int counter = 0;
-        List<PlayerCardDTO> s = new ArrayList <>();
+        List<PlayerCardDTO> playerCardDTOS = findCardsByCriterias(command);
 
-        for (CardDTO cardDTO : cardDTOS) {
-            s.add(playerCardMapper.playerCardToDTO(new PlayerCard(cardMapper.CardDTOToCard(cardDTO), LocalDate.now())));
-            //s.add(playerCardMapper.playerCardToDTO(new PlayerCard("p_" + ++counter, cardDTO.getId().getValue().toString(), LocalDate.now())));
-        }
+        /*for (PlayerCardDTO playerCardDTO : playerCardDTOS) {
+            playerCardDTOS.add(playerCardDTO);
+        }*/
 
-
-        //System.out.println(s);
-        return s;
+        return playerCardDTOS;
     }
 
 
 
     public List <PlayerCardDTO> findCardsByCriterias(String command) {
 
-        FindCardsParams findParams = stringToParams(command);
-        List <PlayerCardDTO> filteredCards = new ArrayList <>();
+        List <PlayerCardDTO> filteredCards = cardService.findCardsByCriterias(command);
 
-        if (!findParamsIsEmpty(findParams)) {
+        /*if (!findParamsIsEmpty(findParams)) {
 
             JsonNode simpleValues = findParams.getSimpleValues();
             List <String> checkedFieldNames = findParams.getCheckedFieldNames();
@@ -104,9 +97,9 @@ public class PlayerCardService {
 
             query.addCriteria(new Criteria().orOperator(criterias.toArray(new Criteria[criterias.size()])));
 
-            /*filteredCards.addAll(Arrays.stream(mongoTemplate.find(query, Card.class).toArray())
-                .map(c -> playerCardMapper.playerCardToDTO(new PlayerCard(cardMapper.CardToCardDTO((Card) c).getId().getValue().toString(), LocalDate.now())))
-                .collect(Collectors.toList()));*/
+            filteredCards.addAll(Arrays.stream(mongoTemplate.find(query, Card.class).toArray())
+                .map(c -> playerCardMapper.playerCardToDTO(new PlayerCard((Card) c, LocalDate.now())))
+                .collect(Collectors.toList()));
 
             for (Object cardObject : Arrays.stream(mongoTemplate.find(query, Card.class).toArray()).toList()) {
                 Card card = (Card) cardObject;
@@ -121,7 +114,7 @@ public class PlayerCardService {
 
             PlayerCard playerCard = new PlayerCard(cardMapper.CardDTOToCard(cardDTO), LocalDate.now());
             filteredCards.add(playerCardMapper.playerCardToDTO(playerCard));
-        }
+        }*/
 
         return filteredCards;
     }
@@ -302,7 +295,7 @@ public class PlayerCardService {
 
         CardDTO cardDTO = new CardDTO();
         PlayerCardDTO playerCardDTO = new PlayerCardDTO();
-        playerCardDTO.setCard(new DataDTO("card", cardDTO));
+        playerCardDTO.setCard(new DataDTO("Card", cardDTO));
 
         return playerCardDTO;
     }

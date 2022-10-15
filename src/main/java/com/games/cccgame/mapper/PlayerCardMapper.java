@@ -6,17 +6,19 @@ import com.games.cccgame.models.Card;
 import com.games.cccgame.models.PlayerCard;
 import com.games.cccgame.services.CardService;
 import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
+@Data
 @AllArgsConstructor
 @Component
 public class PlayerCardMapper {
-
-    private CardService cardService;
 
     private CardMapper cardMapper;
 
@@ -25,7 +27,7 @@ public class PlayerCardMapper {
         PlayerCardDTO playerCardDTO = new PlayerCardDTO();
 
         playerCardDTO.getId().setValue(playerCard.getId());
-        playerCardDTO.getCard().setValue(cardMapper.CardToCardDTO(cardService.getCard(playerCard.getCard().getId())));
+        playerCardDTO.getCard().setValue(cardMapper.CardToCardDTO(playerCard.getCard()));
         playerCardDTO.getTuningWeight().setValue(playerCard.getTuningWeight());
         playerCardDTO.getTuningEngine().setValue(playerCard.getTuningEngine());
         playerCardDTO.getTuningCornering().setValue(playerCard.getTuningCornering());
