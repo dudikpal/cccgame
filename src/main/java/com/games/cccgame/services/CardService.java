@@ -161,12 +161,13 @@ public class CardService {
                 .map(c -> playerCardMapper.playerCardToDTO(new PlayerCard((Card) c, LocalDate.now())))
                 .collect(Collectors.toList()));
 
-            for (Object cardObject : Arrays.stream(mongoTemplate.find(query, Card.class).toArray()).toList()) {
+            /*for (Object cardObject : Arrays.stream(mongoTemplate.find(query, Card.class).toArray()).toList()) {
                 Card card = (Card) cardObject;
                 PlayerCard playerCard = new PlayerCard(card, LocalDate.now());
                 filteredCards.add(playerCardMapper.playerCardToDTO(playerCard));
-            }
+            }*/
 
+        System.out.println(objectMapper.valueToTree(filteredCards));
             return filteredCards;
         }
 
@@ -175,7 +176,6 @@ public class CardService {
             PlayerCard playerCard = new PlayerCard(cardMapper.CardDTOToCard(cardDTO), LocalDate.now());
             filteredCards.add(playerCardMapper.playerCardToDTO(playerCard));
         }
-
         return filteredCards;
     }
 
@@ -201,14 +201,15 @@ public class CardService {
     private List <Criteria> multipleCriterias(JsonNode multipleValues) {
 
         List <Criteria> criterias = new ArrayList <>();
-
+        System.out.println("jsonnode incoming parameter");
+        System.out.println(multipleValues);
         for (JsonNode node : multipleValues) {
 
             String attrName = node.get("name").asText();
             List <String> values = jsonToStringArray(node);
 
             for (String value : values) {
-
+                System.out.println(attrName+ ": " + value);
                 criterias.add(createCriteriaWithParsedValue(attrName, value.trim()));
             }
         }
