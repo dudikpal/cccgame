@@ -1,4 +1,6 @@
 package com.games.cccgame.command;
 
-public class CreateCardCommand extends CardCommand {
+import com.games.cccgame.dtos.CardDTO;
+
+public class CreateCardCommand extends CardDTO {
 }

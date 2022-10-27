@@ -129,10 +129,10 @@ public class CardService {
     }
 
 
-    public List <PlayerCardDTO> findCardsByCriterias(String command) {
+    public List <CardDTO> findCardsByCriterias(String command) {
 
         FindCardsParams findParams = stringToParams(command);
-        List <PlayerCardDTO> filteredCards = new ArrayList <>();
+        List <CardDTO> filteredCards = new ArrayList <>();
 
         if (!findParamsIsEmpty(findParams)) {
 
@@ -152,7 +152,8 @@ public class CardService {
             query.addCriteria(new Criteria().orOperator(criterias.toArray(new Criteria[criterias.size()])));
 
             filteredCards.addAll(Arrays.stream(mongoTemplate.find(query, Card.class).toArray())
-                .map(c -> playerCardMapper.playerCardToDTO(new PlayerCard((Card) c, LocalDate.now())))
+                //.map(c -> playerCardMapper.playerCardToDTO(new PlayerCard((Card) c, LocalDate.now())))
+                .map(c -> cardMapper.CardToCardDTO((Card) c))
                 .collect(Collectors.toList()));
 
             /*for (Object cardObject : Arrays.stream(mongoTemplate.find(query, Card.class).toArray()).toList()) {
@@ -167,9 +168,11 @@ public class CardService {
 
         for (CardDTO cardDTO : getCards()) {
 
-            PlayerCard playerCard = new PlayerCard(cardMapper.CardDTOToCard(cardDTO), LocalDate.now());
-            filteredCards.add(playerCardMapper.playerCardToDTO(playerCard));
+            //PlayerCard playerCard = new PlayerCard(cardMapper.CardDTOToCard(cardDTO), LocalDate.now());
+
+            //filteredCards.add(playerCardMapper.playerCardToDTO(playerCard));
         }
+        filteredCards = getCards();
         return filteredCards;
     }
 

@@ -54,6 +54,7 @@ public class PlayerCardService {
         return playerCardDTO;
     }
 
+
     public PlayerCardDTO createPlayerCard(String cardId) {
 
         Card card = cardService.getCard(cardId);
@@ -63,62 +64,31 @@ public class PlayerCardService {
         return playerCardMapper.playerCardToDTO(playerCard);
     }
 
+
     public List<PlayerCardDTO> getPlayerCardsToAdmin(String command) {
 
         List<PlayerCardDTO> playerCardDTOS = findCardsByCriterias(command);
-
-        /*for (PlayerCardDTO playerCardDTO : playerCardDTOS) {
-            playerCardDTOS.add(playerCardDTO);
-        }*/
 
         return playerCardDTOS;
     }
 
 
-
     public List <PlayerCardDTO> findCardsByCriterias(String command) {
 
-        List <PlayerCardDTO> filteredCards = cardService.findCardsByCriterias(command);
+        List <CardDTO> filteredCards = cardService.findCardsByCriterias(command);
+        List <PlayerCardDTO> filteredPlayerCards = filteredCards.stream()
+            .map(cardDTO -> {
+                PlayerCard playerCard = new PlayerCard();
+                playerCard.setCard(new Card());
+                PlayerCardDTO playerCardDTO = playerCardMapper.playerCardToDTO(playerCard);
+                playerCardDTO.setCard(new DataDTO("Card", cardDTO));
+                return playerCardDTO;
+            })
+            .toList();
 
-        /*if (!findParamsIsEmpty(findParams)) {
-
-            JsonNode simpleValues = findParams.getSimpleValues();
-            List <String> checkedFieldNames = findParams.getCheckedFieldNames();
-            JsonNode betweens = findParams.getBetweens();
-            JsonNode multipleValues = findParams.getMultipleValues();
-
-            Query query = new Query();
-            List <Criteria> criterias = new ArrayList <>();
-
-            criterias.addAll(simpleCriterias(simpleValues));
-            criterias.addAll(isNullCriterias(checkedFieldNames));
-            criterias.addAll(multipleCriterias(multipleValues));
-            criterias.addAll(betweensCriterias(betweens));
-
-            query.addCriteria(new Criteria().orOperator(criterias.toArray(new Criteria[criterias.size()])));
-
-            filteredCards.addAll(Arrays.stream(mongoTemplate.find(query, Card.class).toArray())
-                .map(c -> playerCardMapper.playerCardToDTO(new PlayerCard((Card) c, LocalDate.now())))
-                .collect(Collectors.toList()));
-
-            for (Object cardObject : Arrays.stream(mongoTemplate.find(query, Card.class).toArray()).toList()) {
-                Card card = (Card) cardObject;
-                PlayerCard playerCard = new PlayerCard(card, LocalDate.now());
-                filteredCards.add(playerCardMapper.playerCardToDTO(playerCard));
-            }
-
-            return filteredCards;
-        }
-
-        for (CardDTO cardDTO : cardService.getCards()) {
-
-            PlayerCard playerCard = new PlayerCard(cardMapper.CardDTOToCard(cardDTO), LocalDate.now());
-            filteredCards.add(playerCardMapper.playerCardToDTO(playerCard));
-        }*/
-
-        return filteredCards;
+        return filteredPlayerCards;
     }
-// a plazercardok csak a garageben legzenek mentve!!!
+
 
     private List <Criteria> betweensCriterias(JsonNode betweensValues) {
 

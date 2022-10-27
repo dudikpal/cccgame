@@ -37,7 +37,7 @@ public class PlayerCard {
 
     private int sellingValue;
 
-    private LocalDate createdAt;
+    private LocalDate createdAt = LocalDate.now();
 
     public PlayerCard(Card card, LocalDate createdAt) {
         this.card = card;
