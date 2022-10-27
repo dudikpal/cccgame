@@ -80,18 +80,12 @@ public class CardService {
     @Transactional
     public CardDTO updateCard(UpdateCardCommand command) {
 
-        Card card = cardRepository.findById(command.getId().getValue().toString())
-            .orElseThrow(() -> new IllegalArgumentException("Cannot fond card with this id: " + command.getId().getValue().toString()));
+        cardRepository.findById(command.getId().getValue().toString())
+            .orElseThrow(() -> new IllegalArgumentException("Cannot find card with this id: " + command.getId().getValue().toString()));
+        Card updatedCard = cardMapper.CardDTOToCard(modelMapper.map(command, CardDTO.class));
+        cardRepository.save(updatedCard);
 
-        if (card != null) {
-
-            card = cardMapper.CardDTOToCard(modelMapper.map(command, CardDTO.class));
-            cardRepository.save(card);
-
-            return cardMapper.CardToCardDTO(card);
-        }
-
-        return null;
+        return modelMapper.map(command, CardDTO.class);
     }
 
 
