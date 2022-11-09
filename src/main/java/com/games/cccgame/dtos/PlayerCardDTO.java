@@ -1,5 +1,6 @@
 package com.games.cccgame.dtos;
 
+import com.games.cccgame.models.Tunings;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,15 +14,11 @@ import java.time.LocalDate;
 public class PlayerCardDTO {
 
     @Id
-    private DataDTO id = new DataDTO <String>("ID", null);
+    private DataDTO id = new DataDTO <String>("ID", "empty-pCardId");
 
-    private DataDTO card = new DataDTO <CardDTO>("Card", null);
+    private DataDTO card = new DataDTO <CardDTO>("Card", new CardDTO());
 
-    private DataDTO tuningWeight = new DataDTO <Integer>("Weight tuning", null);
+    private TuningsDTO tunings = new TuningsDTO();
 
-    private DataDTO tuningEngine = new DataDTO <Integer>("Engine tuning", null);
-
-    private DataDTO tuningCornering = new DataDTO <Integer>("Cornering tuning", null);
-
-    private DataDTO createdAt = new DataDTO <LocalDate>("Created date", null);
+    private DataDTO createdAt = new DataDTO <LocalDate>("Created date", LocalDate.now());
 }

@@ -21,11 +21,7 @@ public class PlayerCard {
 
     private Card card;
 
-    private int tuningWeight = 1;
-
-    private int tuningEngine = 1;
-
-    private int tuningCornering = 1;
+    private Tunings tunings = new Tunings();
 
     private int winRatio;
 
@@ -41,12 +37,14 @@ public class PlayerCard {
 
     public PlayerCard(Card card, LocalDate createdAt) {
         this.card = card;
+        this.tunings = new Tunings();
         this.createdAt = createdAt;
     }
 
     public PlayerCard(String id, Card card, LocalDate createdAt) {
         this.id = id;
         this.card = card;
+        this.tunings = new Tunings();
         this.createdAt = createdAt;
     }
 }

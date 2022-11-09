@@ -2,8 +2,10 @@ package com.games.cccgame.mapper;
 
 import com.games.cccgame.dtos.CardDTO;
 import com.games.cccgame.dtos.PlayerCardDTO;
+import com.games.cccgame.dtos.TuningsDTO;
 import com.games.cccgame.models.Card;
 import com.games.cccgame.models.PlayerCard;
+import com.games.cccgame.models.Tunings;
 import com.games.cccgame.services.CardService;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,17 +24,20 @@ public class PlayerCardMapper {
 
     private CardMapper cardMapper;
 
+    private TuningMapper tuningMapper;
+
     public PlayerCardDTO playerCardToDTO(PlayerCard playerCard) {
 
+        /*System.out.println("mapper elott");
+        System.out.println(playerCard);*/
         PlayerCardDTO playerCardDTO = new PlayerCardDTO();
 
         playerCardDTO.getId().setValue(playerCard.getId());
         playerCardDTO.getCard().setValue(cardMapper.CardToCardDTO(playerCard.getCard()));
-        playerCardDTO.getTuningWeight().setValue(playerCard.getTuningWeight());
-        playerCardDTO.getTuningEngine().setValue(playerCard.getTuningEngine());
-        playerCardDTO.getTuningCornering().setValue(playerCard.getTuningCornering());
+        playerCardDTO.setTunings(tuningMapper.tuningsToTuningsDTO(playerCard.getTunings()));
         playerCardDTO.getCreatedAt().setValue(playerCard.getCreatedAt());
-
+        /*System.out.println("mapper utaan");
+        System.out.println(playerCardDTO);*/
         return playerCardDTO;
     }
 
@@ -42,9 +47,7 @@ public class PlayerCardMapper {
 
         playerCard.setId((String)playerCardDTO.getId().getValue());
         playerCard.setCard((Card)cardMapper.CardDTOToCard((CardDTO) playerCardDTO.getCard().getValue()));
-        playerCard.setTuningWeight((Integer)playerCardDTO.getTuningWeight().getValue());
-        playerCard.setTuningEngine((Integer)playerCardDTO.getTuningEngine().getValue());
-        playerCard.setTuningCornering((Integer)playerCardDTO.getTuningCornering().getValue());
+        playerCard.setTunings( tuningMapper.TuningsDTOToTunings((TuningsDTO) playerCardDTO.getTunings()));
         playerCard.setCreatedAt((LocalDate) playerCardDTO.getCreatedAt().getValue());
 
         return playerCard;
