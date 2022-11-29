@@ -4,10 +4,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.games.cccgame.mapper.GarageMapper;
+import com.games.cccgame.mapper.PlayerCardMapper;
 import com.games.cccgame.models.ETuningMultiplier;
+import com.games.cccgame.repository.PlayerCardRepository;
+import com.games.cccgame.services.CardService;
+import com.games.cccgame.services.PlayerCardService;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Arrays;
@@ -18,20 +24,14 @@ import java.util.stream.Collectors;
 @SpringBootApplication
 public class CccGameApplication {
 
+
+
     public static void main(String[] args) {
         SpringApplication.run(CccGameApplication.class, args);
+    }
 
-        /*ETuningMultiplier[] e = ETuningMultiplier.values();
+    public void test() {
 
-        for (ETuningMultiplier etm : e) {
-            System.out.printf("Name: %s, Value: %s%n", etm.name(), etm.getMultiplier());
-        }*/
-            /*Arrays.stream(e).forEach(entry -> {
-                System.out.println(entry.name() + entry.getMultiplier());
-            });*/
-
-
-//        System.out.println(Arrays.stream(e).collect(Collectors.toMap(ETuningMultiplier::name, ETuningMultiplier::getMultiplier)));
     }
 
     @Bean

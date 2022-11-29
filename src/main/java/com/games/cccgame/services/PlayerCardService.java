@@ -2,6 +2,7 @@ package com.games.cccgame.services;
 
 import com.games.cccgame.command.UpgradePlayerCardCommand;
 import com.games.cccgame.dtos.*;
+import com.games.cccgame.mapper.CalculateFieldMapper;
 import com.games.cccgame.mapper.GarageMapper;
 import com.games.cccgame.mapper.PlayerCardMapper;
 import com.games.cccgame.mapper.TuningMapper;
@@ -26,6 +27,8 @@ public class PlayerCardService {
 
     @Autowired
     private PlayerCardMapper playerCardMapper;
+
+    private CalculateFieldMapper calculateFieldMapper;
 
 
     public PlayerCardDTO getPlayerCard(String playerCardId) {
@@ -61,6 +64,7 @@ public class PlayerCardService {
             .map(cardDTO -> {
                 PlayerCardDTO playerCardDTO = new PlayerCardDTO();
                 playerCardDTO.setCard(new DataDTO("Card", cardDTO));
+                playerCardDTO.setCalculatedFields(calculateFieldMapper.initCalculatedFieldsDTO(cardDTO));
                 return playerCardDTO;
             })
             .toList();

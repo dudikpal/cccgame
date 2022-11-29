@@ -1,8 +1,10 @@
 package com.games.cccgame.mapper;
 
 import com.games.cccgame.dtos.CalculatedFieldsDTO;
+import com.games.cccgame.dtos.CardDTO;
 import com.games.cccgame.dtos.DataDTO;
 import com.games.cccgame.models.CalculatedFields;
+import com.games.cccgame.models.PlayerCard;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +15,21 @@ import org.springframework.stereotype.Component;
 //@NoArgsConstructor
 @Component
 public class CalculateFieldMapper {
+
+    public CalculatedFieldsDTO initCalculatedFieldsDTO(CardDTO cardDTO) {
+
+        CalculatedFieldsDTO calculatedFieldsDTO = new CalculatedFieldsDTO();
+        calculatedFieldsDTO.getCornering().setValue(0);
+        calculatedFieldsDTO.getHeight().setValue(cardDTO.getHeight().getValue());
+        calculatedFieldsDTO.getGroundClearance().setValue(cardDTO.getGroundClearance().getValue());
+        calculatedFieldsDTO.getPowerHP().setValue(cardDTO.getPowerHP().getValue());
+        calculatedFieldsDTO.getWeight().setValue(cardDTO.getWeight().getValue());
+        calculatedFieldsDTO.getTopSpeed().setValue(cardDTO.getTopSpeed().getValue());
+        calculatedFieldsDTO.getWidth().setValue(cardDTO.getWidth().getValue());
+        calculatedFieldsDTO.getAcceleration().setValue(cardDTO.getAcceleration().getValue());
+
+        return calculatedFieldsDTO;
+    }
 
     public CalculatedFieldsDTO calculatedFieldsToCalculatedFieldsDTO(CalculatedFields calculatedFields) {
 
