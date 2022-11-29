@@ -1,8 +1,13 @@
 package com.games.cccgame.controllers;
 
+import com.games.cccgame.command.UpgradePlayerCardCommand;
+import com.games.cccgame.dtos.GarageDTO;
 import com.games.cccgame.dtos.PlayerCardDTO;
+import com.games.cccgame.security.services.UserDetailsImpl;
 import com.games.cccgame.services.PlayerCardService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,4 +33,5 @@ public class PlayerCardController {
 
         return playerCardService.getPlayerCardsToAdmin(command);
     }
+
 }

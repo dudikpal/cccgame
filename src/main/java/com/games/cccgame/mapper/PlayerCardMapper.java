@@ -1,5 +1,6 @@
 package com.games.cccgame.mapper;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.games.cccgame.dtos.CardDTO;
 import com.games.cccgame.dtos.PlayerCardDTO;
 import com.games.cccgame.dtos.TuningsDTO;
@@ -26,20 +27,22 @@ public class PlayerCardMapper {
 
     private TuningMapper tuningMapper;
 
+    private CalculateFieldMapper calculateFieldMapper;
+
+    private ObjectMapper objectMapper;
+
     public PlayerCardDTO playerCardToDTO(PlayerCard playerCard) {
 
-        /*System.out.println("mapper elott");
-        System.out.println(playerCard);*/
         PlayerCardDTO playerCardDTO = new PlayerCardDTO();
-
         playerCardDTO.getId().setValue(playerCard.getId());
         playerCardDTO.getCard().setValue(cardMapper.CardToCardDTO(playerCard.getCard()));
         playerCardDTO.setTunings(tuningMapper.tuningsToTuningsDTO(playerCard.getTunings()));
+        playerCardDTO.setCalculatedFields(calculateFieldMapper.calculatedFieldsToCalculatedFieldsDTO(playerCard.getCalculatedFields()));
         playerCardDTO.getCreatedAt().setValue(playerCard.getCreatedAt());
-        /*System.out.println("mapper utaan");
-        System.out.println(playerCardDTO);*/
+
         return playerCardDTO;
     }
+
 
     public PlayerCard DTOToPlayerCard(PlayerCardDTO playerCardDTO) {
 
@@ -48,7 +51,8 @@ public class PlayerCardMapper {
         playerCard.setId((String)playerCardDTO.getId().getValue());
         playerCard.setCard((Card)cardMapper.CardDTOToCard((CardDTO) playerCardDTO.getCard().getValue()));
         playerCard.setTunings( tuningMapper.TuningsDTOToTunings((TuningsDTO) playerCardDTO.getTunings()));
-        playerCard.setCreatedAt((LocalDate) playerCardDTO.getCreatedAt().getValue());
+        playerCard.setCalculatedFields(calculateFieldMapper.calculatedFieldsDTOToCalculatedFields(playerCardDTO.getCalculatedFields()));
+        playerCard.setCreatedAt(objectMapper.convertValue(playerCardDTO.getCreatedAt().getValue(), LocalDate.class));
 
         return playerCard;
     }

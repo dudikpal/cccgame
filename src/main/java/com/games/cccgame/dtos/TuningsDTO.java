@@ -12,9 +12,9 @@ import org.springframework.data.annotation.Id;
 public class TuningsDTO {
 
     @Id
-    private DataDTO weight = new DataDTO <Integer>("Tuning Weight", 1);
+    private DataDTO chassis = new DataDTO <Integer>("Tuning Weight", 0);
 
-    private DataDTO engine = new DataDTO <Integer>("Tuning Engine", 1);
+    private DataDTO engine = new DataDTO <Integer>("Tuning Engine", 0);
 
-    private DataDTO cornering = new DataDTO <Integer>("Tuning Cornering", 1);
+    private DataDTO cornering = new DataDTO <Integer>("Tuning Cornering", 0);
 }

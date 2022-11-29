@@ -19,8 +19,6 @@ import java.util.stream.Collectors;
 @Component
 public class GarageMapper {
 
-    private PlayerCardService playerCardService;
-
     private PlayerCardMapper playerCardMapper;
 
     public GarageDTO garageToDTO(Garage garage) {
@@ -39,5 +37,18 @@ public class GarageMapper {
         );
 
         return garageDTO;
+    }
+
+    public Garage dToToGarage(GarageDTO garageDTO) {
+
+        List<PlayerCard> playerCards = garageDTO.getPlayerCards().stream()
+            .map(cardDTO -> playerCardMapper.DTOToPlayerCard(cardDTO))
+            .toList();
+        Garage garage = new Garage(
+            garageDTO.getId(),
+            playerCards,
+            garageDTO.getCreatedAt()
+        );
+        return garage;
     }
 }

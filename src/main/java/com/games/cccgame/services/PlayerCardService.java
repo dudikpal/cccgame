@@ -1,12 +1,12 @@
 package com.games.cccgame.services;
 
-import com.games.cccgame.dtos.CardDTO;
-import com.games.cccgame.dtos.DataDTO;
-import com.games.cccgame.dtos.PlayerCardDTO;
-import com.games.cccgame.dtos.TuningsDTO;
+import com.games.cccgame.command.UpgradePlayerCardCommand;
+import com.games.cccgame.dtos.*;
+import com.games.cccgame.mapper.GarageMapper;
 import com.games.cccgame.mapper.PlayerCardMapper;
 import com.games.cccgame.mapper.TuningMapper;
 import com.games.cccgame.models.Card;
+import com.games.cccgame.models.Garage;
 import com.games.cccgame.models.PlayerCard;
 import com.games.cccgame.repository.PlayerCardRepository;
 import lombok.AllArgsConstructor;
@@ -27,9 +27,6 @@ public class PlayerCardService {
     @Autowired
     private PlayerCardMapper playerCardMapper;
 
-    @Autowired
-    private TuningMapper tuningMapper;
-
 
     public PlayerCardDTO getPlayerCard(String playerCardId) {
 
@@ -43,8 +40,7 @@ public class PlayerCardService {
     public PlayerCardDTO createPlayerCard(String cardId) {
 
         Card card = cardService.getCard(cardId);
-        PlayerCard playerCard = playerCardRepository
-            .save(new PlayerCard(card, LocalDate.now()));
+        PlayerCard playerCard = playerCardRepository.save(new PlayerCard(card, LocalDate.now()));
 
         return playerCardMapper.playerCardToDTO(playerCard);
     }
@@ -63,10 +59,7 @@ public class PlayerCardService {
         List <CardDTO> filteredCards = cardService.findCardsByCriterias(command);
         List <PlayerCardDTO> filteredPlayerCards = filteredCards.stream()
             .map(cardDTO -> {
-                PlayerCard playerCard = new PlayerCard();
-                playerCard.setCard(new Card());
-                PlayerCardDTO playerCardDTO = playerCardMapper.playerCardToDTO(playerCard);
-                playerCardDTO.setTunings(tuningMapper.tuningsToTuningsDTO(playerCard.getTunings()));
+                PlayerCardDTO playerCardDTO = new PlayerCardDTO();
                 playerCardDTO.setCard(new DataDTO("Card", cardDTO));
                 return playerCardDTO;
             })
@@ -78,13 +71,7 @@ public class PlayerCardService {
 
     public PlayerCardDTO getPlayerCardSkeleton() {
 
-        CardDTO cardDTO = new CardDTO();
-        TuningsDTO tuningsDTO = new TuningsDTO();
         PlayerCardDTO playerCardDTO = new PlayerCardDTO();
-        /*playerCardDTO.setCard(new DataDTO("Card", cardDTO));
-        playerCardDTO.setTunings(tuningsDTO);
-        playerCardDTO.setCreatedAt(new DataDTO("Created date", ));*/
-
         return playerCardDTO;
     }
 }

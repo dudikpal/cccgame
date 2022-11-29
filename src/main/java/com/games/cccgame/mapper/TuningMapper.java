@@ -15,7 +15,7 @@ public class TuningMapper {
 
         Tunings tunings = new Tunings();
         tunings.setEngine((int)tuningsDTO.getEngine().getValue());
-        tunings.setWeight((int)tuningsDTO.getWeight().getValue());
+        tunings.setChassis((int)tuningsDTO.getChassis().getValue());
         tunings.setCornering((int)tuningsDTO.getCornering().getValue());
 
         return tunings;
@@ -26,7 +26,7 @@ public class TuningMapper {
 
         TuningsDTO tuningsDTO = new TuningsDTO();
         tuningsDTO.getEngine().setValue(tunings.getEngine());
-        tuningsDTO.getWeight().setValue(tunings.getWeight());
+        tuningsDTO.getChassis().setValue(tunings.getChassis());
         tuningsDTO.getCornering().setValue(tunings.getCornering());
 
         return tuningsDTO;

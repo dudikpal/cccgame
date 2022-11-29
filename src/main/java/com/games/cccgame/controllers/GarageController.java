@@ -1,5 +1,6 @@
 package com.games.cccgame.controllers;
 
+import com.games.cccgame.command.UpgradePlayerCardCommand;
 import com.games.cccgame.dtos.GarageDTO;
 import com.games.cccgame.security.jwt.JwtUtils;
 import com.games.cccgame.security.services.UserDetailsImpl;
@@ -28,4 +29,13 @@ public class GarageController {
         return garage;
     }
 
+
+    @PutMapping
+    public void updateGarage(@RequestBody UpgradePlayerCardCommand command) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl user = (UserDetailsImpl) auth.getPrincipal();
+
+        garageService.updateGarage(user.getGarageId(), command);
+    }
 }

@@ -20,5 +20,7 @@ public class PlayerCardDTO {
 
     private TuningsDTO tunings = new TuningsDTO();
 
+    private CalculatedFieldsDTO calculatedFields = new CalculatedFieldsDTO();
+
     private DataDTO createdAt = new DataDTO <LocalDate>("Created date", LocalDate.now());
 }

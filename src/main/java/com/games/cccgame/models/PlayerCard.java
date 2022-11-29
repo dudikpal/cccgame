@@ -1,5 +1,6 @@
 package com.games.cccgame.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,9 @@ public class PlayerCard {
 
     private Card card;
 
-    private Tunings tunings = new Tunings();
+    private Tunings tunings;
+
+    private CalculatedFields calculatedFields;
 
     private int winRatio;
 
@@ -33,18 +36,20 @@ public class PlayerCard {
 
     private int sellingValue;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate createdAt = LocalDate.now();
 
     public PlayerCard(Card card, LocalDate createdAt) {
         this.card = card;
         this.tunings = new Tunings();
+        this.calculatedFields = new CalculatedFields();
         this.createdAt = createdAt;
-    }
-
-    public PlayerCard(String id, Card card, LocalDate createdAt) {
-        this.id = id;
-        this.card = card;
-        this.tunings = new Tunings();
-        this.createdAt = createdAt;
+        calculatedFields.setAcceleration(card.getAcceleration());
+        calculatedFields.setTopSpeed(card.getTopSpeed());
+        calculatedFields.setWeight(card.getWeight());
+        calculatedFields.setPowerHP(card.getPowerHP());
+        calculatedFields.setWidth(card.getWidth());
+        calculatedFields.setHeight(card.getHeight());
+        calculatedFields.setGroundClearance(card.getGroundClearance());
     }
 }
