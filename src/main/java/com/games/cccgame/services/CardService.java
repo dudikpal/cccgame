@@ -12,6 +12,7 @@ import com.games.cccgame.dtos.PlayerCardDTO;
 import com.games.cccgame.mapper.CardMapper;
 import com.games.cccgame.mapper.PlayerCardMapper;
 import com.games.cccgame.models.Card;
+import com.games.cccgame.models.Garage;
 import com.games.cccgame.models.PlayerCard;
 import com.games.cccgame.repository.CardRepository;
 import lombok.AllArgsConstructor;
@@ -46,9 +47,6 @@ public class CardService {
     @Autowired
     private CardMapper cardMapper;
 
-    @Autowired
-    private PlayerCardMapper playerCardMapper;
-
     private MongoTemplate mongoTemplate;
 
     public List <CardDTO> getCards() {
@@ -56,7 +54,6 @@ public class CardService {
         return cardRepository.findAll().stream()
             .map(card -> cardMapper.CardToCardDTO(card))
             .toList();
-
     }
 
     public Card getCard(String cardId) {

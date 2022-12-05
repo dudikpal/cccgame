@@ -12,7 +12,7 @@ import java.util.Map;
 @AllArgsConstructor
 public enum ETuningMultiplier {
 
-    CHASSIS(0.013),
+    CHASSIS(0.016),
     ENGINE(0.03),
     CORNERING(0.03);
 

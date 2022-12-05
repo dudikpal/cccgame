@@ -4,8 +4,11 @@ import com.games.cccgame.models.Garage;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 
+import java.util.List;
+
 public interface GarageRepository extends MongoRepository<Garage, String> {
 
     @Query("{'ownerId': ?0}")
     Garage getGarageByOwnerId(String ownerId);
+
 }
