@@ -1,6 +1,7 @@
 package com.games.cccgame.controllers;
 
 import com.games.cccgame.command.CalculateTuningCommand;
+import com.games.cccgame.command.UpgradePlayerCardCommand;
 import com.games.cccgame.dtos.PlayerCardDTO;
 import com.games.cccgame.security.services.UserDetailsImpl;
 import com.games.cccgame.services.PlayerCardService;
@@ -34,5 +35,10 @@ public class PlayerCardController {
     }
 
 
-
+    @PostMapping("/tuning/chassis")
+    public PlayerCardDTO calculatePlayerCardDTOTuningChassis(@RequestBody CalculateTuningCommand command) {
+        PlayerCardDTO playerCardDTO = playerCardService.calculatePlayerCardDTOTuningChassis(command);
+        //System.out.println(playerCardDTO);
+        return playerCardDTO;
+    }
 }

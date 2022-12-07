@@ -97,6 +97,11 @@ public class PlayerCardService {
     }
 
 
+    public void calculatePlayerCardTunings(PlayerCard playerCard) {
+        //calculatePlayerCardTuningChassis(playerCard)
+    }
+
+
     public PlayerCardDTO calculatePlayerCardTuningEngine(CalculateTuningCommand command) {
 
         PlayerCard upgradedCard = playerCardMapper.DTOToPlayerCard(modelMapper.map(command, PlayerCardDTO.class));
@@ -117,13 +122,17 @@ public class PlayerCardService {
 
     public PlayerCard calculatePlayerCardTuningChassis(CalculateTuningCommand command) {
 
+        // a DataDTO miatt kell objectMappelni
         PlayerCardDTO playerCardDTO = objectMapper.convertValue(command, PlayerCardDTO.class);
         CardDTO cardDTO = objectMapper.convertValue(command.getCard().getValue(), CardDTO.class);
         playerCardDTO.getCard().setValue(cardDTO);
         PlayerCard upgradedCard = playerCardMapper.DTOToPlayerCard(playerCardDTO);
-        tuningChassis(upgradedCard);
 
-        return upgradedCard;
+        return tuningChassis(upgradedCard);
+    }
+
+    public PlayerCardDTO calculatePlayerCardDTOTuningChassis(CalculateTuningCommand command) {
+        return playerCardMapper.playerCardToDTO(calculatePlayerCardTuningChassis(command));
     }
 
 

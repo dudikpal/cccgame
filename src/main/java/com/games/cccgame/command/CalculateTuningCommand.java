@@ -6,8 +6,10 @@ import com.games.cccgame.models.Tunings;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
-@AllArgsConstructor
 @Data
+@AllArgsConstructor
+
 public class CalculateTuningCommand extends PlayerCardDTO {
 }
