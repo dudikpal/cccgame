@@ -130,8 +130,6 @@ public class GarageService {
 
                 if (garage.getPlayerCards().get(i).getCard().getId().equals(updatedCard.getId())) {
                     garage.getPlayerCards().get(i).setCard(updatedCard);
-
-
                 }
             }
             Card card = playerCards.get(0).getCard();
@@ -148,15 +146,9 @@ public class GarageService {
             .findFirst()
             .getAsInt();
 
-        PlayerCardDTO playerCardFromCommand = objectMapper.convertValue(command, PlayerCardDTO.class);
-        CardDTO cardDTO = objectMapper.convertValue(command.getCard().getValue(), CardDTO.class);
-        playerCardFromCommand.getCard().setValue(cardDTO);
-
         PlayerCard upgradedPlayerCard = playerCardService.calculatePlayerCardTuningChassis(command);
         garage.getPlayerCards().set(playerCardIndex, upgradedPlayerCard);
-        System.out.println(upgradedPlayerCard.getCalculatedFields());
-        System.out.println(garage.getPlayerCards().get(playerCardIndex).getCalculatedFields());
-        //garageRepository.save(garage);
+        garageRepository.save(garage);
 
         return playerCardMapper.playerCardToDTO(upgradedPlayerCard);
     }
