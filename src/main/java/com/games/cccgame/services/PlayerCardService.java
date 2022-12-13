@@ -120,16 +120,23 @@ public class PlayerCardService {
     }
 
 
-    public PlayerCard calculatePlayerCardTuningChassis(CalculateTuningCommand command) {
+    public PlayerCard calculatePlayerCardTuningChassis(PlayerCard playerCard) {
 
-        PlayerCardDTO playerCardDTO = commandToPlayercardDTO(command);
-        PlayerCard upgradedCard = playerCardMapper.DTOToPlayerCard(playerCardDTO);
-
-        return tuningChassis(upgradedCard);
+        return tuningChassis(playerCard);
     }
 
     public PlayerCardDTO calculatePlayerCardDTOTuningChassis(CalculateTuningCommand command) {
-        return playerCardMapper.playerCardToDTO(calculatePlayerCardTuningChassis(command));
+        return playerCardMapper.playerCardToDTO(calculatePlayerCardTuningChassis(commandToPlayercard(command)));
+    }
+
+
+    public <T extends PlayerCardDTO> PlayerCard commandToPlayercard(T command) {
+        // a DataDTO miatt kell objectMappelni
+        PlayerCardDTO playerCardDTO = objectMapper.convertValue(command, PlayerCardDTO.class);
+        CardDTO cardDTO = objectMapper.convertValue(command.getCard().getValue(), CardDTO.class);
+        playerCardDTO.getCard().setValue(cardDTO);
+
+        return playerCardMapper.DTOToPlayerCard(playerCardDTO);
     }
 
 
@@ -143,16 +150,6 @@ public class PlayerCardService {
         playerCard.getCalculatedFields().setTopSpeed(calcIncrease(tuningMultiplier, tuningLevel, playerCard.getCard().getTopSpeed()));
 
         return playerCard;
-    }
-
-
-    private <T extends PlayerCardDTO> PlayerCardDTO commandToPlayercardDTO(T command) {
-        // a DataDTO miatt kell objectMappelni
-        PlayerCardDTO playerCardDTO = objectMapper.convertValue(command, PlayerCardDTO.class);
-        CardDTO cardDTO = objectMapper.convertValue(command.getCard().getValue(), CardDTO.class);
-        playerCardDTO.getCard().setValue(cardDTO);
-
-        return playerCardDTO;
     }
 
 
@@ -174,7 +171,7 @@ public class PlayerCardService {
         double tuningMultiplier = ETuningMultiplier.CORNERING.getMultiplier();
         int tuningLevel = playerCard.getTunings().getCornering();
 
-        playerCard.getCalculatedFields().setWidth(calcIncrease(tuningMultiplier, tuningLevel, playerCard.getCard().getWidth()));
+        playerCard.getCalculatedFields().setWidth(playerCard.getCalculatedFields().getWidth() + calcIncrease(tuningMultiplier, tuningLevel, playerCard.getCard().getWidth()));
         playerCard.getCalculatedFields().setHeight(calcDecrease(tuningMultiplier, tuningLevel, playerCard.getCard().getHeight()));
         playerCard.getCalculatedFields().setGroundClearance(calcDecrease(tuningMultiplier, tuningLevel, playerCard.getCard().getGroundClearance()));
 

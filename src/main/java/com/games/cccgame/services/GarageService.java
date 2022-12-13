@@ -85,6 +85,10 @@ public class GarageService {
         Garage garage = new Garage(List.of(), LocalDate.now());
         List <PlayerCard> playerCards = new ArrayList <>();
 
+        playerCards.add(playerCardMapper.DTOToPlayerCard(playerCardService.createPlayerCard("c_audi-a8-55-tfsi-quattro_80368")));
+        playerCards.add(playerCardMapper.DTOToPlayerCard(playerCardService.createPlayerCard("c_audi-a8-55-tfsi-quattro_80368")));
+        playerCards.add(playerCardMapper.DTOToPlayerCard(playerCardService.createPlayerCard("c_2007_audi_a4_71215")));
+
         playerCards.add(playerCardMapper.DTOToPlayerCard(playerCardService.createPlayerCard("c_2-i-turbo-231hp-8302")));
         playerCards.add(playerCardMapper.DTOToPlayerCard(playerCardService.createPlayerCard("c_0-tsi-evo-300hp-dsg-42357")));
         PlayerCard playerCard = playerCardMapper.DTOToPlayerCard(playerCardService.createPlayerCard("tsi-evo-300hp-dsg-42357"));
@@ -121,21 +125,30 @@ public class GarageService {
 
         List<String> garageIds = getAllGarageIds();
         Card updatedCard = cardMapper.CardDTOToCard(command);
+        cardService.updateCard(command);
 
         for (String garageId : garageIds) {
             Garage garage = getRawGarage(garageId);
             List<PlayerCard> playerCards = garage.getPlayerCards();
 
-            for (int i = 0; i < playerCards.size(); i++) {
+            List<PlayerCard> filteredPlayerCards = playerCards.stream()
+                .filter(playerCard -> playerCard.getCard().getId().equals(updatedCard.getId()))
+                .toList();
 
-                if (garage.getPlayerCards().get(i).getCard().getId().equals(updatedCard.getId())) {
-                    garage.getPlayerCards().get(i).setCard(updatedCard);
-                }
+            for (PlayerCard playerCard : filteredPlayerCards) {
+                int index = garage.getPlayerCards().indexOf(playerCard);
+                playerCard.setCard(updatedCard);
+                calculateAllTunings(playerCard);
             }
-            Card card = playerCards.get(0).getCard();
-            card.setId("modositott");
+            garageRepository.save(garage);
         }
     }
+
+
+    private void calculateAllTunings(PlayerCard playerCard) {
+        playerCardService.calculatePlayerCardTuningChassis(playerCard);
+    }
+
 
     public PlayerCardDTO calculatePlayerCardTuningChassis(String garageId, CalculateTuningCommand command) {
 
@@ -146,7 +159,7 @@ public class GarageService {
             .findFirst()
             .getAsInt();
 
-        PlayerCard upgradedPlayerCard = playerCardService.calculatePlayerCardTuningChassis(command);
+        PlayerCard upgradedPlayerCard = playerCardService.calculatePlayerCardTuningChassis(playerCardService.commandToPlayercard(command));
         garage.getPlayerCards().set(playerCardIndex, upgradedPlayerCard);
         garageRepository.save(garage);
 
