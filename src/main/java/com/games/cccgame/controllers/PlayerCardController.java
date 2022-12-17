@@ -23,22 +23,30 @@ public class PlayerCardController {
 
     @GetMapping
     public PlayerCardDTO getPlayerCardSkeleton() {
-
         return playerCardService.getPlayerCardSkeleton();
     }
 
 
     @PostMapping
     public List <PlayerCardDTO> getPlayerCardsToAdmin(@RequestBody String command) {
-
         return playerCardService.getPlayerCardsToAdmin(command);
     }
 
 
     @PostMapping("/tuning/chassis")
     public PlayerCardDTO calculatePlayerCardDTOTuningChassis(@RequestBody CalculateTuningCommand command) {
-        PlayerCardDTO playerCardDTO = playerCardService.calculatePlayerCardDTOTuningChassis(command);
-        //System.out.println(playerCardDTO);
-        return playerCardDTO;
+        return playerCardService.calculatePlayerCardDTOTuningChassis(command);
+    }
+
+
+    @PostMapping("/tuning/engine")
+    public PlayerCardDTO calculatePlayerCardDTOTuningEngine(@RequestBody CalculateTuningCommand command) {
+        return playerCardService.calculatePlayerCardDTOTuningEngine(command);
+    }
+
+
+    @PostMapping("/tuning/cornering")
+    public PlayerCardDTO calculatePlayerCardDTOTuningCornering(@RequestBody CalculateTuningCommand command) {
+        return playerCardService.calculatePlayerCardDTOTuningCornering(command);
     }
 }

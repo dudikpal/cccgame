@@ -1,6 +1,7 @@
 package com.games.cccgame.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.games.cccgame.mapper.CalculateFieldMapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -44,12 +45,6 @@ public class PlayerCard {
         this.tunings = new Tunings();
         this.calculatedFields = new CalculatedFields();
         this.createdAt = createdAt;
-        calculatedFields.setAcceleration(card.getAcceleration());
-        calculatedFields.setTopSpeed(card.getTopSpeed());
-        calculatedFields.setWeight(card.getWeight());
-        calculatedFields.setPowerHP(card.getPowerHP());
-        calculatedFields.setWidth(card.getWidth());
-        calculatedFields.setHeight(card.getHeight());
-        calculatedFields.setGroundClearance(card.getGroundClearance());
+        this.calculatedFields = new CalculateFieldMapper().initCalculatedFields(card);
     }
 }

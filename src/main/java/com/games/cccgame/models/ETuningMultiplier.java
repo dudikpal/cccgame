@@ -12,9 +12,14 @@ import java.util.Map;
 @AllArgsConstructor
 public enum ETuningMultiplier {
 
-    CHASSIS(0.016),
+    CHASSIS(0.1),
+    ENGINE(0.1),
+    CORNERING(0.1);
+/*
+CHASSIS(0.016),
     ENGINE(0.03),
     CORNERING(0.03);
+*/
 
     private double multiplier;
 

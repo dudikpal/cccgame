@@ -24,22 +24,13 @@ public class GarageController {
 
     @GetMapping
     public GarageDTO getGarage() {
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetailsImpl user = (UserDetailsImpl) auth.getPrincipal();
-        GarageDTO garage = garageService.getGarage(user.getGarageId());
-
-        return garage;
+        return garageService.getGarage(getGarageId());
     }
 
 
     @PutMapping
     public void updatePlayerCardInGarage(@RequestBody UpgradePlayerCardCommand command) {
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetailsImpl user = (UserDetailsImpl) auth.getPrincipal();
-
-        garageService.updatePlayerCardInGarage(user.getGarageId(), command);
+        garageService.updatePlayerCardInGarage(getGarageId(), command);
     }
 
 
@@ -51,22 +42,27 @@ public class GarageController {
 
     @PostMapping("/calculate_tuning/chassis")
     public PlayerCardDTO calculateTuningChassis(@RequestBody CalculateTuningCommand command) {
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        UserDetailsImpl user = (UserDetailsImpl) auth.getPrincipal();
-
-        return garageService.calculatePlayerCardTuningChassis(user.getGarageId(), command);
+        return garageService.calculatePlayerCardTuningChassis(getGarageId(), command);
     }
 
 
     @PostMapping("/calculate_tuning/engine")
     public PlayerCardDTO calculateTuningEngine(@RequestBody CalculateTuningCommand command) {
-        return garageService.calculatePlayerCardTuningEngine(command);
+        return garageService.calculatePlayerCardTuningEngine(getGarageId(), command);
     }
 
 
     @PostMapping("/calculate_tuning/cornering")
     public PlayerCardDTO calculateTuningCornering(@RequestBody CalculateTuningCommand command) {
-        return garageService.calculatePlayerCardTuningCornering(command);
+        return garageService.calculatePlayerCardTuningCornering(getGarageId(), command);
+    }
+
+
+    private String getGarageId() {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        UserDetailsImpl user = (UserDetailsImpl) auth.getPrincipal();
+
+        return user.getGarageId();
     }
 }

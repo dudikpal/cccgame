@@ -7,6 +7,7 @@ import com.games.cccgame.command.UpgradePlayerCardCommand;
 import com.games.cccgame.dtos.CardDTO;
 import com.games.cccgame.dtos.GarageDTO;
 import com.games.cccgame.dtos.PlayerCardDTO;
+import com.games.cccgame.mapper.CalculateFieldMapper;
 import com.games.cccgame.mapper.CardMapper;
 import com.games.cccgame.mapper.GarageMapper;
 import com.games.cccgame.mapper.PlayerCardMapper;
@@ -54,6 +55,8 @@ public class GarageService {
     private GarageMapper garageMapper;
 
     private CardMapper cardMapper;
+
+    private CalculateFieldMapper calculateFieldMapper;
 
 
     public GarageDTO getGarage(String garageId) {
@@ -120,7 +123,7 @@ public class GarageService {
 
     }
 
-
+// engine tuning után chassist választva a weightet leveszi, de az acc meg a topspeed változatlan marad
     public void updateAllInstancesOfCard(UpdateCardCommand command) {
 
         List<String> garageIds = getAllGarageIds();
@@ -130,23 +133,28 @@ public class GarageService {
         for (String garageId : garageIds) {
             Garage garage = getRawGarage(garageId);
             List<PlayerCard> playerCards = garage.getPlayerCards();
-
             List<PlayerCard> filteredPlayerCards = playerCards.stream()
                 .filter(playerCard -> playerCard.getCard().getId().equals(updatedCard.getId()))
                 .toList();
 
             for (PlayerCard playerCard : filteredPlayerCards) {
+
                 int index = garage.getPlayerCards().indexOf(playerCard);
                 playerCard.setCard(updatedCard);
-                calculateAllTunings(playerCard);
+                playerCard.setCalculatedFields(calculateFieldMapper.initCalculatedFields(updatedCard));
+                garage.getPlayerCards().set(index, calculateAllTunings(playerCard));
             }
             garageRepository.save(garage);
         }
     }
 
 
-    private void calculateAllTunings(PlayerCard playerCard) {
+    private PlayerCard calculateAllTunings(PlayerCard playerCard) {
         playerCardService.calculatePlayerCardTuningChassis(playerCard);
+        playerCardService.calculatePlayerCardTuningEngine(playerCard);
+        playerCardService.calculatePlayerCardTuningCornering(playerCard);
+
+        return playerCard;
     }
 
 
@@ -166,12 +174,36 @@ public class GarageService {
         return playerCardMapper.playerCardToDTO(upgradedPlayerCard);
     }
 
-    public PlayerCardDTO calculatePlayerCardTuningEngine(CalculateTuningCommand command) {
-        return playerCardService.calculatePlayerCardTuningEngine(command);
+    public PlayerCardDTO calculatePlayerCardTuningEngine(String garageId, CalculateTuningCommand command) {
+
+        Garage garage = getRawGarage(garageId);
+        List<PlayerCard> playerCards = garage.getPlayerCards();
+        int playerCardIndex = IntStream.range(0, playerCards.size())
+            .filter(index -> playerCards.get(index).getId().equals(command.getId().getValue()))
+            .findFirst()
+            .getAsInt();
+
+        PlayerCard upgradedPlayerCard = playerCardService.calculatePlayerCardTuningEngine(playerCardService.commandToPlayercard(command));
+        garage.getPlayerCards().set(playerCardIndex, upgradedPlayerCard);
+        garageRepository.save(garage);
+
+        return playerCardMapper.playerCardToDTO(upgradedPlayerCard);
     }
 
-    public PlayerCardDTO calculatePlayerCardTuningCornering(CalculateTuningCommand command) {
-        return playerCardService.calculatePlayerCardTuningCornering(command);
+    public PlayerCardDTO calculatePlayerCardTuningCornering(String garageId, CalculateTuningCommand command) {
+
+        Garage garage = getRawGarage(garageId);
+        List<PlayerCard> playerCards = garage.getPlayerCards();
+        int playerCardIndex = IntStream.range(0, playerCards.size())
+            .filter(index -> playerCards.get(index).getId().equals(command.getId().getValue()))
+            .findFirst()
+            .getAsInt();
+
+        PlayerCard upgradedPlayerCard = playerCardService.calculatePlayerCardTuningCornering(playerCardService.commandToPlayercard(command));
+        garage.getPlayerCards().set(playerCardIndex, upgradedPlayerCard);
+        garageRepository.save(garage);
+
+        return playerCardMapper.playerCardToDTO(upgradedPlayerCard);
     }
 
 
