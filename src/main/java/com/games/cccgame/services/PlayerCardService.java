@@ -150,9 +150,9 @@ public class PlayerCardService {
         int tuningLevel = playerCard.getTunings().getChassis();
         CalculatedFields calculatedFields = playerCard.getCalculatedFields();
 
-        calculatedFields.setAcceleration(playerCard.getCard().getAcceleration() - calcDoubleValue(tuningMultiplier, tuningLevel, playerCard.getCard().getAcceleration()));
-        calculatedFields.setWeight(playerCard.getCard().getWeight() - calcIntValue(tuningMultiplier, tuningLevel, playerCard.getCard().getWeight()));
-        calculatedFields.setTopSpeed(playerCard.getCard().getTopSpeed() + calcIntValue(tuningMultiplier, tuningLevel, playerCard.getCard().getTopSpeed()));
+        calculatedFields.setAcceleration(playerCard.getCalculatedFields().getAcceleration() - calcDoubleValue(tuningMultiplier, tuningLevel, playerCard.getCard().getAcceleration()));
+        calculatedFields.setWeight(playerCard.getCalculatedFields().getWeight() - calcIntValue(tuningMultiplier, tuningLevel, playerCard.getCard().getWeight()));
+        calculatedFields.setTopSpeed(playerCard.getCalculatedFields().getTopSpeed() + calcIntValue(tuningMultiplier, tuningLevel, playerCard.getCard().getTopSpeed()));
 
         return playerCard;
     }
@@ -164,9 +164,9 @@ public class PlayerCardService {
         int tuningLevel = playerCard.getTunings().getEngine();
         CalculatedFields calculatedFields = playerCard.getCalculatedFields();
 
-        calculatedFields.setAcceleration(playerCard.getCard().getAcceleration() - calcDoubleValue(tuningMultiplier, tuningLevel, playerCard.getCard().getAcceleration()));
-        calculatedFields.setPowerHP(playerCard.getCard().getPowerHP() + calcIntValue(tuningMultiplier, tuningLevel, playerCard.getCard().getPowerHP()));
-        calculatedFields.setTopSpeed(playerCard.getCard().getTopSpeed() + calcIntValue(tuningMultiplier, tuningLevel, playerCard.getCard().getTopSpeed()));
+        calculatedFields.setAcceleration(playerCard.getCalculatedFields().getAcceleration() - calcDoubleValue(tuningMultiplier, tuningLevel, playerCard.getCard().getAcceleration()));
+        calculatedFields.setPowerHP(playerCard.getCalculatedFields().getPowerHP() + calcIntValue(tuningMultiplier, tuningLevel, playerCard.getCard().getPowerHP()));
+        calculatedFields.setTopSpeed(playerCard.getCalculatedFields().getTopSpeed() + calcIntValue(tuningMultiplier, tuningLevel, playerCard.getCard().getTopSpeed()));
 
         return playerCard;
     }
@@ -178,16 +178,16 @@ public class PlayerCardService {
         int tuningLevel = playerCard.getTunings().getCornering();
         CalculatedFields calculatedFields = playerCard.getCalculatedFields();
 
-        calculatedFields.setWidth(playerCard.getCard().getWidth() + playerCard.getCalculatedFields().getWidth() + calcIntValue(tuningMultiplier, tuningLevel, playerCard.getCard().getWidth()));
-        calculatedFields.setHeight(playerCard.getCard().getHeight() - calcIntValue(tuningMultiplier, tuningLevel, playerCard.getCard().getHeight()));
-        calculatedFields.setGroundClearance(playerCard.getCard().getGroundClearance() - calcIntValue(tuningMultiplier, tuningLevel, playerCard.getCard().getGroundClearance()));
+        calculatedFields.setWidth(playerCard.getCalculatedFields().getWidth() + calcIntValue(tuningMultiplier, tuningLevel, playerCard.getCard().getWidth()));
+        calculatedFields.setHeight(playerCard.getCalculatedFields().getHeight() - calcIntValue(tuningMultiplier, tuningLevel, playerCard.getCard().getHeight()));
+        calculatedFields.setGroundClearance(playerCard.getCalculatedFields().getGroundClearance() - calcIntValue(tuningMultiplier, tuningLevel, playerCard.getCard().getGroundClearance()));
 
         return playerCard;
     }
 
 
     private int calcIntValue(double tuningMultiplier, int tuningLevel, int cardValue) {
-        return (int)(cardValue * (tuningLevel * tuningMultiplier));
+        return (int)(cardValue * (tuningMultiplier * Math.pow(ETuningMultiplier.DECREASER.getMultiplier(), tuningLevel)));
     }
 
 
@@ -195,7 +195,7 @@ public class PlayerCardService {
 
         DecimalFormatSymbols decimalFormatSymbols = DecimalFormatSymbols.getInstance();
         decimalFormatSymbols.setDecimalSeparator('.');
-        double result = cardValue * (tuningLevel * tuningMultiplier);
+        double result = cardValue * (tuningMultiplier * Math.pow(ETuningMultiplier.DECREASER.getMultiplier(), tuningLevel));
 
         return Double.parseDouble(new DecimalFormat("0.00", decimalFormatSymbols).format(result));
     }

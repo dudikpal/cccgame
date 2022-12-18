@@ -14,7 +14,8 @@ public enum ETuningMultiplier {
 
     CHASSIS(0.1),
     ENGINE(0.1),
-    CORNERING(0.1);
+    CORNERING(0.1),
+    DECREASER(0.9);
 /*
 CHASSIS(0.016),
     ENGINE(0.03),
