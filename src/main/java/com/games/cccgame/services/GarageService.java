@@ -88,7 +88,7 @@ public class GarageService {
         Garage garage = new Garage(List.of(), LocalDate.now());
         List <PlayerCard> playerCards = new ArrayList <>();
 
-        playerCards.add(playerCardMapper.DTOToPlayerCard(playerCardService.createPlayerCard("c_audi-a8-55-tfsi-quattro_80368")));
+        /*playerCards.add(playerCardMapper.DTOToPlayerCard(playerCardService.createPlayerCard("c_audi-a8-55-tfsi-quattro_80368")));
         playerCards.add(playerCardMapper.DTOToPlayerCard(playerCardService.createPlayerCard("c_audi-a8-55-tfsi-quattro_80368")));
         playerCards.add(playerCardMapper.DTOToPlayerCard(playerCardService.createPlayerCard("c_2007_audi_a4_71215")));
 
@@ -98,7 +98,10 @@ public class GarageService {
         Tunings tunings = new Tunings();
         playerCard.setTunings(tunings);
         playerCards.add(playerCard);
-        garage.setPlayerCards(playerCards);
+        garage.setPlayerCards(playerCards);*/
+        garage.setPlayerCards(cardService.getCards().stream()
+            .map(card -> playerCardService.createRawPlayerCard(card.getId().getValue().toString()))
+            .toList());
         garageRepository.save(garage);
 
         return garageMapper.garageToDTO(garage);
@@ -127,8 +130,8 @@ public class GarageService {
     public void updateAllInstancesOfCard(UpdateCardCommand command) {
 
         List<String> garageIds = getAllGarageIds();
-        Card updatedCard = cardMapper.CardDTOToCard(command);
-        cardService.updateCard(command);
+        Card updatedCard = cardService.updateCard(command);
+
 
         for (String garageId : garageIds) {
             Garage garage = getRawGarage(garageId);

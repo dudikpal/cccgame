@@ -53,9 +53,9 @@ public class CardController {
 
 
     @PutMapping
-    public CardDTO updateCard(@RequestBody UpdateCardCommand command) {
+    public void updateCard(@RequestBody UpdateCardCommand command) {
 
-        return cardService.updateCard(command);
+        cardService.updateCard(command);
     }
 
 

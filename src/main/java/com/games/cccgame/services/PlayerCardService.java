@@ -40,7 +40,7 @@ public class PlayerCardService {
 
     public PlayerCardDTO getPlayerCard(String playerCardId) {
 
-        PlayerCard playerCard = playerCardRepository.findById(playerCardId).get();
+        PlayerCard playerCard = getRawPlayerCard(playerCardId);
         PlayerCardDTO playerCardDTO = playerCardMapper.playerCardToDTO(playerCard);
 
         return playerCardDTO;
@@ -55,10 +55,16 @@ public class PlayerCardService {
 
     public PlayerCardDTO createPlayerCard(String cardId) {
 
+        return playerCardMapper.playerCardToDTO(createRawPlayerCard(cardId));
+    }
+
+
+    public PlayerCard createRawPlayerCard(String cardId) {
+
         Card card = cardService.getCard(cardId);
         PlayerCard playerCard = playerCardRepository.save(new PlayerCard(card, LocalDate.now()));
 
-        return playerCardMapper.playerCardToDTO(playerCard);
+        return playerCard;
     }
 
 
@@ -187,6 +193,11 @@ public class PlayerCardService {
 
 
     private int calcIntValue(double tuningMultiplier, int tuningLevel, int cardValue) {
+
+        if (tuningLevel == 0) {
+            return 0;
+        }
+
         return (int)(cardValue * (tuningMultiplier * Math.pow(ETuningMultiplier.DECREASER.getMultiplier(), tuningLevel)));
     }
 
@@ -195,6 +206,11 @@ public class PlayerCardService {
 
         DecimalFormatSymbols decimalFormatSymbols = DecimalFormatSymbols.getInstance();
         decimalFormatSymbols.setDecimalSeparator('.');
+
+        if (tuningLevel == 0) {
+            return 0.0;
+        }
+
         double result = cardValue * (tuningMultiplier * Math.pow(ETuningMultiplier.DECREASER.getMultiplier(), tuningLevel));
 
         return Double.parseDouble(new DecimalFormat("0.00", decimalFormatSymbols).format(result));

@@ -20,7 +20,7 @@ public class CalculateFieldMapper {
     public CalculatedFields initCalculatedFields(Card card) {
 
         CalculatedFields calculatedFields = new CalculatedFields();
-        calculatedFields.setCornering(0);
+        calculatedFields.setCornering(card.getCornering());
         calculatedFields.setHeight(card.getHeight());
         calculatedFields.setGroundClearance(card.getGroundClearance());
         calculatedFields.setPowerHP(card.getPowerHP());
@@ -35,7 +35,7 @@ public class CalculateFieldMapper {
     public CalculatedFieldsDTO initCalculatedFieldsDTO(CardDTO cardDTO) {
 
         CalculatedFieldsDTO calculatedFieldsDTO = new CalculatedFieldsDTO();
-        calculatedFieldsDTO.getCornering().setValue(0);
+        calculatedFieldsDTO.getCornering().setValue(cardDTO.getCornering().getValue());
         calculatedFieldsDTO.getHeight().setValue(cardDTO.getHeight().getValue());
         calculatedFieldsDTO.getGroundClearance().setValue(cardDTO.getGroundClearance().getValue());
         calculatedFieldsDTO.getPowerHP().setValue(cardDTO.getPowerHP().getValue());

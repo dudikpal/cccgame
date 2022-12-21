@@ -27,6 +27,8 @@ public class Card {
 
     private Integer doors;
 
+    private Integer cornering;
+
     private String body;
 
     private Integer seats;

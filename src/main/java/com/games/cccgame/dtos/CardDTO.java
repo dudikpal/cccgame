@@ -21,6 +21,8 @@ public class CardDTO {
 
     private DataDTO doors = new DataDTO <Integer>("Doors", null);
 
+    private DataDTO cornering = new DataDTO <Integer>("Cornering", null);
+
     private DataDTO body = new DataDTO <String>("Body type", null);
 
     private DataDTO seats = new DataDTO <Integer>("Seats", null);

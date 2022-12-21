@@ -31,8 +31,6 @@ public class PlayerCard {
 
     private String[] tags;
 
-    private int cornering;
-
     private double hpPerKg;
 
     private int sellingValue;
@@ -43,7 +41,6 @@ public class PlayerCard {
     public PlayerCard(Card card, LocalDate createdAt) {
         this.card = card;
         this.tunings = new Tunings();
-        this.calculatedFields = new CalculatedFields();
         this.createdAt = createdAt;
         this.calculatedFields = new CalculateFieldMapper().initCalculatedFields(card);
     }

@@ -16,6 +16,7 @@ public class CardMapper {
         card.setType((String) cardDTO.getType().getValue());
         card.setYear(Integer.parseInt(cardDTO.getYear().getValue().toString()));
         card.setCountry((String) cardDTO.getCountry().getValue());
+        card.setCornering(Integer.parseInt(cardDTO.getCornering().getValue().toString()));
         card.setDoors(Integer.parseInt(cardDTO.getDoors().getValue().toString()));
         card.setBody((String) cardDTO.getBody().getValue());
         card.setSeats(Integer.parseInt(cardDTO.getSeats().getValue().toString()));
@@ -61,6 +62,7 @@ public class CardMapper {
         cardDTO.getType().setValue(card.getType());
         cardDTO.getYear().setValue(card.getYear());
         cardDTO.getCountry().setValue(card.getCountry());
+        cardDTO.getCornering().setValue(card.getCornering());
         cardDTO.getDoors().setValue(card.getDoors());
         cardDTO.getBody().setValue(card.getBody());
         cardDTO.getSeats().setValue(card.getSeats());

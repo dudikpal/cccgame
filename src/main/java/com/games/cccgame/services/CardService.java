@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.security.web.context.SaveContextOnUpdateOrErrorResponseWrapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,9 +66,10 @@ public class CardService {
 
         Card card = new Card();
 
-        if (!cardRepository.existsById(command.getId().getValue().toString())) {
+        if (!cardRepository.existsById(command.getId())) {
 
-            card = cardMapper.CardDTOToCard(modelMapper.map(command, CardDTO.class));
+            card = modelMapper.map(command, Card.class);
+            calculateCardCornering(card);
             cardRepository.save(card);
         }
 
@@ -75,14 +77,29 @@ public class CardService {
     }
 
     @Transactional
-    public CardDTO updateCard(UpdateCardCommand command) {
+    public Card updateCard(UpdateCardCommand command) {
 
         cardRepository.findById(command.getId().getValue().toString())
             .orElseThrow(() -> new IllegalArgumentException("Cannot find card with this id: " + command.getId().getValue().toString()));
         Card updatedCard = cardMapper.CardDTOToCard(modelMapper.map(command, CardDTO.class));
+        calculateCardCornering(updatedCard);
         cardRepository.save(updatedCard);
 
-        return modelMapper.map(command, CardDTO.class);
+        return updatedCard;
+    }
+
+
+    private Card calculateCardCornering(Card card) {
+        // be kéne hozni vhogy a weightet is
+        double msToKmh = 3.6;
+        double gravity = 9.81;
+        int cornerRadiusMeter = 20;
+        double widthMeter = (double)card.getWidth() / 1000;
+        double heightMeter = (double)card.getHeight() / 1000;
+        int cornering = (int)(Math.sqrt((cornerRadiusMeter * gravity * (widthMeter / 2)) / (heightMeter / 4)) * msToKmh);
+        card.setCornering(cornering);
+
+        return card;
     }
 
 
@@ -102,22 +119,22 @@ public class CardService {
 
         try {
 
-            List <Card> cardList = mapper.readValue(cardsJson, new TypeReference <List <Card>>() {
+            List <Card> cardList = mapper.readValue(cardsJson, new TypeReference <>() {
             });
 
-            /*for (Card card : cardList) {
+            for (Card card : cardList) {
 
-                if (cardRepository.findById(card.getId()).isEmpty()) {
+                //if (cardRepository.findById(card.getId()).isEmpty()) {
 
                     //String createCardCommand = card.toString();
                     CreateCardCommand createCardCommand = modelMapper.map(card, CreateCardCommand.class);
                     cardDTOs.add(createCard(createCardCommand));
-                } else {
-
+                /*} else {
+                    // a már létezőket felülírja
                     UpdateCardCommand updateCardCommand = modelMapper.map(card, UpdateCardCommand.class);
                     cardDTOs.add(updateCard(updateCardCommand));
-                }
-            }*/
+                }*/
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
