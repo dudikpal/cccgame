@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Slf4j
 @Service
 @AllArgsConstructor
@@ -18,6 +20,12 @@ public class BaseCardService {
     private BaseCardRepository baseCardRepository;
 
     private ModelMapper modelMapper;
+
+    public List <BaseCardDTO> getFilteredBaseCards() {
+        return baseCardRepository.findAll().stream()
+            .map(baseCard -> modelMapper.map(baseCard, BaseCardDTO.class))
+            .toList();
+    }
 
     public BaseCardDTO getBaseCardById(String id) {
         BaseCard baseCard = baseCardRepository.findById(id)
@@ -38,11 +46,21 @@ public class BaseCardService {
         BaseCard baseCard = modelMapper.map(command, BaseCard.class);
         baseCardRepository.save(baseCard);
 
-        return null;
+        return modelMapper.map(baseCard, BaseCardDTO.class);
     }
 
     public void deleteBaseCard(String id) {
         baseCardRepository.deleteById(id);
         log.info(id + " baseCard deleted successfully");
+    }
+
+    public void bulkCreateBaseCards(List<CreateBaseCardCommand> commands) {
+        for (CreateBaseCardCommand command : commands) {
+            createBaseCard(command);
+        }
+    }
+
+    public void dropBaseCardsTable() {
+        baseCardRepository.deleteAll();
     }
 }

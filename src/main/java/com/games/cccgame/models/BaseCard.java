@@ -17,9 +17,9 @@ public class BaseCard {
     @Id
     private String id;
 
-    private String carManufacturer;
+    private String manufacturer;
 
-    private String carType;
+    private String type;
 
     private Integer year;
 
