@@ -63,4 +63,8 @@ public class BaseCardService {
     public void dropBaseCardsTable() {
         baseCardRepository.deleteAll();
     }
+
+    public BaseCardDTO getBaseCardSkeleton() {
+        return new BaseCardDTO();
+    }
 }

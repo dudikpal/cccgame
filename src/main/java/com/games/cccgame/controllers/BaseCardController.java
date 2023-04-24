@@ -44,6 +44,11 @@ public class BaseCardController {
         baseCardService.deleteBaseCard(id);
     }
 
+    @GetMapping("/skeleton")
+    public BaseCardDTO getBaseCardSkeleton() {
+        return baseCardService.getBaseCardSkeleton();
+    }
+
     @PostMapping("/bulk")
     public void bulkCreateBaseCard(@RequestBody List<CreateBaseCardCommand> commands) {
         baseCardService.bulkCreateBaseCards(commands);
