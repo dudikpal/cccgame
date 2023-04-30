@@ -1,5 +1,6 @@
 package com.games.cccgame.controllers;
 
+import com.games.cccgame.commands.BaseCardFilterCommand;
 import com.games.cccgame.commands.CreateBaseCardCommand;
 import com.games.cccgame.commands.UpdateBaseCardCommand;
 import com.games.cccgame.dtos.BaseCardDTO;
@@ -19,9 +20,9 @@ public class BaseCardController {
 
     private BaseCardService baseCardService;
 
-    @GetMapping
-    public List<BaseCardDTO> getFilteredBaseCards() {
-        return baseCardService.getFilteredBaseCards();
+    @PostMapping
+    public List<BaseCardDTO> getFilteredBaseCards(@RequestBody BaseCardFilterCommand command) {
+        return baseCardService.getFilteredBaseCards(command);
     }
 
     @GetMapping("/{id}")
@@ -29,7 +30,7 @@ public class BaseCardController {
         return baseCardService.getBaseCardById(id);
     }
 
-    @PostMapping
+    @PostMapping("/create")
     public BaseCardDTO creatBaseCard(@RequestBody CreateBaseCardCommand command) {
         return baseCardService.createBaseCard(command);
     }

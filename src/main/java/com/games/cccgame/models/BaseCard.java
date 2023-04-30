@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.time.Instant;
 
 @Data
 @Accessors(chain = true)
@@ -15,51 +16,19 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class BaseCard {
 
     @Id
-    private String id;
+    private String baseCardId;
 
     private String manufacturer;
 
     private String type;
 
-    private Integer year;
-
     private String country;
 
-    private Integer doors;
-
-    private Integer cornering;
-
     private String body;
-
-    private Integer seats;
 
     private String driveWheel;
 
     private String fuelType;
-
-    private Integer fuelTankCapacity;
-
-    private Integer engineCapacity;
-
-    private Integer powerKW;
-
-    private Integer powerHP;
-
-    private Integer maxTorque;
-
-    private Integer topSpeed;
-
-    private Double acceleration;
-
-    private Integer weight;
-
-    private Integer length;
-
-    private Integer width;
-
-    private Integer height;
-
-    private Integer groundClearance;
 
     private String abs;
 
@@ -79,6 +48,38 @@ public class BaseCard {
 
     private String objectHeight;
 
+    private Integer year;
+
+    private Integer doors;
+
+    private Integer cornering;
+
+    private Integer seats;
+
+    private Integer fuelTankCapacity;
+
+    private Integer engineCapacity;
+
+    private Integer powerKW;
+
+    private Integer powerHP;
+
+    private Integer maxTorque;
+
+    private Integer topSpeed;
+
+    private Integer weight;
+
+    private Integer length;
+
+    private Integer width;
+
+    private Integer height;
+
+    private Integer groundClearance;
+
+    private Double acceleration;
+
     private Double gear1st;
 
     private Double gear2nd;
@@ -92,4 +93,8 @@ public class BaseCard {
     private Double gear6th;
 
     private Double finalDrive;
+
+    private Instant createdAt;
+
+    private Instant updatedAt;
 }
