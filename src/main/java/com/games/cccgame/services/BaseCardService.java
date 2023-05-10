@@ -3,6 +3,7 @@ package com.games.cccgame.services;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.games.cccgame.commands.BaseCardFilterCommand;
 import com.games.cccgame.commands.CreateBaseCardCommand;;
+import com.games.cccgame.commands.DeleteBaseCardCommand;
 import com.games.cccgame.commands.UpdateBaseCardCommand;
 import com.games.cccgame.dtos.BaseCardDTO;
 import com.games.cccgame.models.*;
@@ -152,9 +153,9 @@ public class BaseCardService {
         return modelMapper.map(baseCard, BaseCardDTO.class);
     }
 
-    public void deleteBaseCard(String id) {
-        baseCardRepository.deleteById(id);
-        log.info(id + " baseCard deleted successfully");
+    public void deleteBaseCard(DeleteBaseCardCommand command) {
+        baseCardRepository.deleteById(command.getId());
+        log.info(command.getId() + " baseCard deleted successfully");
     }
 
     public void bulkCreateBaseCards(List<CreateBaseCardCommand> commands) {

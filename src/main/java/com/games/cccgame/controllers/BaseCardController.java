@@ -2,6 +2,7 @@ package com.games.cccgame.controllers;
 
 import com.games.cccgame.commands.BaseCardFilterCommand;
 import com.games.cccgame.commands.CreateBaseCardCommand;
+import com.games.cccgame.commands.DeleteBaseCardCommand;
 import com.games.cccgame.commands.UpdateBaseCardCommand;
 import com.games.cccgame.dtos.BaseCardDTO;
 import com.games.cccgame.services.BaseCardService;
@@ -40,9 +41,9 @@ public class BaseCardController {
         return baseCardService.updateBaseCard(command);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteBaseCard(@PathVariable String id) {
-        baseCardService.deleteBaseCard(id);
+    @DeleteMapping
+    public void deleteBaseCard(@RequestBody DeleteBaseCardCommand command) {
+        baseCardService.deleteBaseCard(command);
     }
 
     @GetMapping("/skeleton")
@@ -55,7 +56,7 @@ public class BaseCardController {
         baseCardService.bulkCreateBaseCards(commands);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/droptable")
     public void dropBaseCardsTable() {
         baseCardService.dropBaseCardsTable();
     }

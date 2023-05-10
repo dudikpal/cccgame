@@ -16,7 +16,7 @@ import java.time.Instant;
 public class BaseCard {
 
     @Id
-    private String baseCardId;
+    private String id;
 
     private String manufacturer;
 
