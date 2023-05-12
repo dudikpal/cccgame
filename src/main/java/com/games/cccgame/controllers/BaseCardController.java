@@ -1,9 +1,6 @@
 package com.games.cccgame.controllers;
 
-import com.games.cccgame.commands.BaseCardFilterCommand;
-import com.games.cccgame.commands.CreateBaseCardCommand;
-import com.games.cccgame.commands.DeleteBaseCardCommand;
-import com.games.cccgame.commands.UpdateBaseCardCommand;
+import com.games.cccgame.commands.*;
 import com.games.cccgame.dtos.BaseCardDTO;
 import com.games.cccgame.services.BaseCardService;
 import lombok.AllArgsConstructor;
@@ -39,6 +36,11 @@ public class BaseCardController {
     @PutMapping
     public BaseCardDTO updateBaseCard(@RequestBody UpdateBaseCardCommand command) {
         return baseCardService.updateBaseCard(command);
+    }
+
+    @PutMapping("/bulk")
+    public void bulkUpdateBaseCard(@RequestBody BulkUpdateBaseCardCommand command) {
+        baseCardService.bulkUpdateBaseCard(command);
     }
 
     @DeleteMapping

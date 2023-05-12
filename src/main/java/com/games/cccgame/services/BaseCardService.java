@@ -1,10 +1,8 @@
 package com.games.cccgame.services;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.games.cccgame.commands.BaseCardFilterCommand;
-import com.games.cccgame.commands.CreateBaseCardCommand;;
-import com.games.cccgame.commands.DeleteBaseCardCommand;
-import com.games.cccgame.commands.UpdateBaseCardCommand;
+import com.games.cccgame.commands.*;
+;
 import com.games.cccgame.dtos.BaseCardDTO;
 import com.games.cccgame.models.*;
 import com.games.cccgame.repositories.BaseCardRepository;
@@ -101,9 +99,6 @@ public class BaseCardService {
     }
 
     private Criteria criteriaWithParsedValue(String attributeName, String value) {
-        if (isNumber(value)) {
-            return Criteria.where(attributeName).is(parseToNumber(value));
-        }
         String regexContainValue = "(?i).*" + value + ".*";
 
         return Criteria.where(attributeName).regex(regexContainValue);
@@ -170,5 +165,11 @@ public class BaseCardService {
 
     public BaseCardDTO getBaseCardSkeleton() {
         return new BaseCardDTO();
+    }
+
+    public void bulkUpdateBaseCard(BulkUpdateBaseCardCommand command) {
+        for (UpdateBaseCardCommand singleUpdateCommand : command.getUpdateBaseCardCommands()) {
+            updateBaseCard(singleUpdateCommand);
+        }
     }
 }
