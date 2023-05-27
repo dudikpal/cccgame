@@ -23,5 +23,10 @@ public class BaseCardFilter {
             ", betweens=" + Arrays.toString(betweens) +
             '}';
     }
+
+    public boolean filterIsEmptyOrNull() {
+        return (simpleValues == null && multipleValues == null && betweens == null)
+            || (simpleValues.length == 0 && multipleValues.length == 0 && betweens.length == 0);
+    }
 }
 

@@ -12,11 +12,15 @@ import java.time.Instant;
 @Accessors(chain = true)
 @NoArgsConstructor
 @AllArgsConstructor
-@Document("base_cards")
+@Document("basecards")
 public class BaseCard {
 
     @Id
     private String id;
+
+    private int rq;
+
+    private String level;
 
     private String manufacturer;
 
@@ -97,4 +101,8 @@ public class BaseCard {
     private Instant createdAt;
 
     private Instant updatedAt;
+
+    private boolean isPrizeCard;
+
+    private int value;
 }

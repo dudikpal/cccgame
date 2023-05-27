@@ -34,14 +34,12 @@ public class BaseCardService {
     private final String REGEX_IS_NUMBER = "^\\d+(\\.\\d+)?$";
 
     public List<BaseCardDTO> getFilteredBaseCards(BaseCardFilterCommand command) {
-        BaseCardFilter filter = modelMapper.map(command, BaseCardFilter.class);
 
-        if (filterIsEmpty(filter)) {
-            return baseCardRepository.findAll().stream()
-                .map(baseCard -> modelMapper.map(baseCard, BaseCardDTO.class))
-                .toList();
+        if (command.filterIsEmptyOrNull()) {
+            return getAllBaseCards();
         }
 
+        BaseCardFilter filter = modelMapper.map(command, BaseCardFilter.class);
         List<BaseCardDTO> filteredBaseCards = new ArrayList <>();
         Query query = new Query();
         List<Criteria> criterias = new ArrayList <>();
@@ -57,6 +55,12 @@ public class BaseCardService {
         );
 
         return filteredBaseCards;
+    }
+
+    private List<BaseCardDTO> getAllBaseCards() {
+        return baseCardRepository.findAll().stream()
+            .map(baseCard -> modelMapper.map(baseCard, BaseCardDTO.class))
+            .toList();
     }
 
     private List<Criteria> betweenCriterias(Between[] betweens) {
