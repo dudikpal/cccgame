@@ -7,6 +7,7 @@ import lombok.experimental.Accessors;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @Accessors(chain = true)
@@ -18,7 +19,9 @@ public class BaseCard {
     @Id
     private String id;
 
-    private int rq;
+    private Integer rq;
+
+    private List <String> tags;
 
     private String level;
 
@@ -102,7 +105,7 @@ public class BaseCard {
 
     private Instant updatedAt;
 
-    private boolean isPrizeCard;
+    private Boolean isPrizeCard;
 
-    private int value;
+    private Integer value;
 }

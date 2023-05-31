@@ -57,7 +57,7 @@ public class BaseCardService {
         return filteredBaseCards;
     }
 
-    private List<BaseCardDTO> getAllBaseCards() {
+    public List<BaseCardDTO> getAllBaseCards() {
         return baseCardRepository.findAll().stream()
             .map(baseCard -> modelMapper.map(baseCard, BaseCardDTO.class))
             .toList();

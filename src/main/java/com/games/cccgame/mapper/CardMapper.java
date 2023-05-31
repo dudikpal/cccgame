@@ -1,6 +1,7 @@
 package com.games.cccgame.mapper;
 
 import com.games.cccgame.builder.PlayerCardBuilder;
+import com.games.cccgame.dtos.PlayerCardDTO;
 import com.games.cccgame.models.BaseCard;
 import com.games.cccgame.models.PlayerCard;
 import com.games.cccgame.models.Tunings;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Component
 @AllArgsConstructor
@@ -16,25 +18,54 @@ public class CardMapper {
 
     public PlayerCard BaseCardToPlayerCard(BaseCard baseCard) {
 
-        PlayerCard playerCard = PlayerCardBuilder.aPlayerCard()
-            .withBaseCard(baseCard)
-            .withAcceleration(baseCard.getAcceleration())
-            .withCornering(baseCard.getCornering())
-            .withGroundClearance(baseCard.getGroundClearance())
-            .withHeight(baseCard.getHeight())
-            .withPowerHP(baseCard.getPowerHP())
-            .withTopSpeed(baseCard.getTopSpeed())
-            .withWeight(baseCard.getWeight())
-            .withWidth(baseCard.getWidth())
-            .withTags(new ArrayList<String>())
-            .withTunings(new Tunings(0, 0, 0))
-            .withCreatedAt(Instant.now())
-            .withUpdatedAt(Instant.now())
-            .withValue(baseCard.getValue())
-            .withLoss(0)
-            .withWin(0)
-            .build();
+        PlayerCard playerCard = new PlayerCard();
 
+        playerCard.setBaseCard(baseCard);
+
+
+        if (baseCard.getAcceleration() != null) {
+            playerCard.setAcceleration(baseCard.getAcceleration());
+        }
+
+        if (baseCard.getCornering() != null) {
+            playerCard.setCornering(baseCard.getCornering());
+        }
+
+        if (baseCard.getGroundClearance() != null) {
+            playerCard.setGroundClearance(baseCard.getGroundClearance());
+        }
+
+        if (baseCard.getHeight() != null) {
+            playerCard.setHeight(baseCard.getHeight());
+        }
+
+        if (baseCard.getPowerHP() != null) {
+            playerCard.setPowerHP(baseCard.getPowerHP());
+        }
+
+        if (baseCard.getTopSpeed() != null) {
+            playerCard.setTopSpeed(baseCard.getTopSpeed());
+        }
+
+        if (baseCard.getWeight() != null) {
+            playerCard.setWeight(baseCard.getWeight());
+        }
+
+        if (baseCard.getWidth() != null) {
+            playerCard.setWidth(baseCard.getWidth());
+        }
+
+        if (baseCard.getCreatedAt() != null) {
+            playerCard.setCreatedAt(Instant.now());
+        }
+
+        if (baseCard.getUpdatedAt() != null) {
+            playerCard.setUpdatedAt(Instant.now());
+        }
+
+        if (baseCard.getValue() != null) {
+            playerCard.setValue(baseCard.getValue());
+        }
         return playerCard;
     }
 }

@@ -22,33 +22,31 @@ public class PlayerCard {
     @Id
     private String id;
 
-    private BaseCard baseCard;
+    private BaseCard baseCard = new BaseCard();
 
-    private Tunings tunings;
+    private Tunings tunings = new Tunings();
 
-    private int weight;
+    private Integer weight;
 
-    private int topSpeed;
+    private Integer topSpeed;
 
-    private double acceleration;
+    private Double acceleration;
 
-    private int powerHP;
+    private Integer powerHP;
 
-    private int width;
+    private Integer width;
 
-    private int height;
+    private Integer height;
 
-    private int cornering;
+    private Integer cornering;
 
-    private int groundClearance;
+    private Integer groundClearance;
 
-    private ArrayList<String> tags;
+    private Integer win;
 
-    private int win;
+    private Integer loss;
 
-    private int loss;
-
-    private int value;
+    private Integer value;
 
     private Instant createdAt;
 
