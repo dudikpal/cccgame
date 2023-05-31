@@ -171,8 +171,8 @@ public class BaseCardService {
         return new BaseCardDTO();
     }
 
-    public void bulkUpdateBaseCard(BulkUpdateBaseCardCommand command) {
-        for (UpdateBaseCardCommand singleUpdateCommand : command.getUpdateBaseCardCommands()) {
+    public void bulkUpdateBaseCard(List<UpdateBaseCardCommand> commands) {
+        for (UpdateBaseCardCommand singleUpdateCommand : commands) {
             updateBaseCard(singleUpdateCommand);
         }
     }
