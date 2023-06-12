@@ -1,21 +1,32 @@
 package com.games.cccgame.services;
 
 import com.games.cccgame.builder.PlayerCardBuilder;
+import com.games.cccgame.commands.BaseCardFilterCommand;
+import com.games.cccgame.commands.BulkCreatePlayercardCommand;
 import com.games.cccgame.commands.CreatePlayercardCommand;
+import com.games.cccgame.dtos.BaseCardDTO;
+import com.games.cccgame.dtos.PlayerCardDTO;
 import com.games.cccgame.mapper.CardMapper;
 import com.games.cccgame.models.BaseCard;
+import com.games.cccgame.models.BaseCardFilter;
 import com.games.cccgame.models.PlayerCard;
 import com.games.cccgame.repositories.PlayerCardRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class PlayerCardService {
 
     private PlayerCardRepository playerCardRepository;
+
+    private BaseCardService baseCardService;
 
     private CardMapper cardMapper;
 
@@ -28,5 +39,48 @@ public class PlayerCardService {
         return playerCardRepository.save(
             cardMapper.BaseCardToPlayerCard(baseCard)
         );
+    }
+
+    public List <PlayerCard> getPlayerCards() {
+        /*List<BaseCardDTO> baseCards = baseCardService.getAllBaseCards();
+        List<PlayerCard> playerCards = new ArrayList <>();
+        for (BaseCard baseCard : baseCards) {
+            playerCards.add(cardMapper.BaseCardToPlayerCard(baseCard));
+        }*/
+        List<PlayerCard> playerCards = playerCardRepository.findAll();
+
+        return playerCards;
+    }
+
+    public List <PlayerCard> bulkCreatePlayerCard(List<CreatePlayercardCommand> commands) {
+
+        for (CreatePlayercardCommand command: commands) {
+
+            BaseCard baseCard = modelMapper.map(command, BaseCard.class);
+            PlayerCard playerCard = cardMapper.BaseCardToPlayerCard(baseCard);
+            playerCardRepository.save(playerCard);
+        }
+
+        return playerCardRepository.findAll();
+    }
+
+    public PlayerCard getPlayerCardSkeleton() {
+        return new PlayerCardDTO();
+    }
+
+    public List <PlayerCard> getFilteredPlayerCards(BaseCardFilterCommand command) {
+
+        List<PlayerCard> playerCards = new ArrayList <>();
+
+        for (BaseCardDTO baseCardDTO : baseCardService.getFilteredBaseCards(command)) {
+
+            BaseCard baseCard = modelMapper.map(baseCardDTO, BaseCard.class);
+            PlayerCard playerCard = cardMapper.BaseCardToPlayerCard(baseCard);
+
+            playerCard.setId(new ObjectId().toString());
+            playerCards.add(playerCard);
+        }
+
+        return playerCards;
     }
 }

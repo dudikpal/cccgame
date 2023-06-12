@@ -19,7 +19,6 @@ public final class PlayerCardBuilder {
     private int height;
     private int cornering;
     private int groundClearance;
-    private ArrayList <String> tags;
     private int win;
     private int loss;
     private int value;
@@ -88,11 +87,6 @@ public final class PlayerCardBuilder {
         return this;
     }
 
-    public PlayerCardBuilder withTags(ArrayList <String> tags) {
-        this.tags = tags;
-        return this;
-    }
-
     public PlayerCardBuilder withWin(int win) {
         this.win = win;
         return this;
@@ -131,7 +125,6 @@ public final class PlayerCardBuilder {
         playerCard.setHeight(height);
         playerCard.setCornering(cornering);
         playerCard.setGroundClearance(groundClearance);
-        playerCard.setTags(tags);
         playerCard.setWin(win);
         playerCard.setLoss(loss);
         playerCard.setValue(value);

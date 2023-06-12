@@ -39,8 +39,9 @@ public class BaseCardController {
     }
 
     @PutMapping("/bulk")
-    public void bulkUpdateBaseCard(@RequestBody BulkUpdateBaseCardCommand command) {
-        baseCardService.bulkUpdateBaseCard(command);
+    public void bulkUpdateBaseCard(@RequestBody List<UpdateBaseCardCommand> commands) {
+        System.out.println(commands);
+        baseCardService.bulkUpdateBaseCard(commands);
     }
 
     @DeleteMapping

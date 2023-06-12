@@ -57,7 +57,7 @@ public class BaseCardService {
         return filteredBaseCards;
     }
 
-    private List<BaseCardDTO> getAllBaseCards() {
+    public List<BaseCardDTO> getAllBaseCards() {
         return baseCardRepository.findAll().stream()
             .map(baseCard -> modelMapper.map(baseCard, BaseCardDTO.class))
             .toList();
@@ -171,8 +171,8 @@ public class BaseCardService {
         return new BaseCardDTO();
     }
 
-    public void bulkUpdateBaseCard(BulkUpdateBaseCardCommand command) {
-        for (UpdateBaseCardCommand singleUpdateCommand : command.getUpdateBaseCardCommands()) {
+    public void bulkUpdateBaseCard(List<UpdateBaseCardCommand> commands) {
+        for (UpdateBaseCardCommand singleUpdateCommand : commands) {
             updateBaseCard(singleUpdateCommand);
         }
     }
