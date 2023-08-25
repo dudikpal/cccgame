@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.games.cccgame.commands.*;
 ;
 import com.games.cccgame.dtos.BaseCardDTO;
+import com.games.cccgame.helper.Calculate;
 import com.games.cccgame.models.*;
 import com.games.cccgame.repositories.BaseCardRepository;
+import com.games.cccgame.repositories.PlayerCardRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
@@ -27,7 +29,11 @@ public class BaseCardService {
 
     private BaseCardRepository baseCardRepository;
 
+    private PlayerCardRepository playerCardRepository;
+
     private ModelMapper modelMapper;
+
+    private Calculate calculate;
 
     private MongoTemplate mongoTemplate;
 
@@ -148,8 +154,19 @@ public class BaseCardService {
     public BaseCardDTO updateBaseCard(UpdateBaseCardCommand command) {
         BaseCard baseCard = modelMapper.map(command, BaseCard.class);
         baseCardRepository.save(baseCard);
+        updateInPlayerCards(baseCard);
 
         return modelMapper.map(baseCard, BaseCardDTO.class);
+    }
+
+    private void updateInPlayerCards(BaseCard baseCard) {
+        List<PlayerCard> playerCards = playerCardRepository.findAllByBaseCardId(baseCard.getId());
+        for (PlayerCard playerCard : playerCards) {
+            playerCard.setBaseCard(baseCard);
+            calculate.playerCardFields(playerCard);
+            playerCardRepository.save(playerCard);
+        }
+        log.info("Update baseCard in all playercards is finished.");
     }
 
     public void deleteBaseCard(DeleteBaseCardCommand command) {
