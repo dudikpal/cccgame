@@ -1,6 +1,5 @@
 package com.games.cccgame.services;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.games.cccgame.commands.*;
 ;
 import com.games.cccgame.dtos.BaseCardDTO;
@@ -144,15 +143,23 @@ public class BaseCardService {
         return modelMapper.map(baseCard, BaseCardDTO.class);
     }
 
-    public BaseCardDTO createBaseCard(CreateBaseCardCommand command) {
+    public BaseCardDTO createBaseCardFromCommand(CreateBaseCardCommand command) {
         BaseCard baseCard = modelMapper.map(command, BaseCard.class);
-        baseCardRepository.save(baseCard);
+        createBaseCard(baseCard);
 
         return modelMapper.map(baseCard, BaseCardDTO.class);
     }
 
+    public BaseCard createBaseCard(BaseCard baseCard) {
+        calculate.baseCardCornering(baseCard);
+        baseCardRepository.save(baseCard);
+
+        return baseCard;
+    }
+
     public BaseCardDTO updateBaseCard(UpdateBaseCardCommand command) {
         BaseCard baseCard = modelMapper.map(command, BaseCard.class);
+        calculate.baseCardCornering(baseCard);
         baseCardRepository.save(baseCard);
         updateInPlayerCards(baseCard);
 
@@ -175,6 +182,7 @@ public class BaseCardService {
     }
 
     public void bulkCreateBaseCards(List<CreateBaseCardCommand> commands) {
+        System.out.println(commands);
         for (CreateBaseCardCommand command : commands) {
             createBaseCard(command);
         }

@@ -30,7 +30,7 @@ public class BaseCardController {
 
     @PostMapping("/create")
     public BaseCardDTO creatBaseCard(@RequestBody CreateBaseCardCommand command) {
-        return baseCardService.createBaseCard(command);
+        return baseCardService.createBaseCardFromCommand(command);
     }
 
     @PutMapping

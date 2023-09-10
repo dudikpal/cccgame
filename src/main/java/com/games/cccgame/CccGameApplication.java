@@ -3,6 +3,7 @@ package com.games.cccgame;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.games.cccgame.helper.Calculate;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
@@ -33,4 +34,8 @@ public class CccGameApplication {
             .build();
     }
 
+    @Bean
+    public Calculate calculate() {
+        return new Calculate();
+    }
 }
