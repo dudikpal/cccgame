@@ -6,10 +6,13 @@ import com.games.cccgame.commands.BulkCreatePlayercardCommand;
 import com.games.cccgame.commands.CreatePlayercardCommand;
 import com.games.cccgame.dtos.BaseCardDTO;
 import com.games.cccgame.dtos.PlayerCardDTO;
+import com.games.cccgame.helper.Calculate;
 import com.games.cccgame.mapper.CardMapper;
 import com.games.cccgame.models.BaseCard;
 import com.games.cccgame.models.BaseCardFilter;
 import com.games.cccgame.models.PlayerCard;
+import com.games.cccgame.models.Tunings;
+import com.games.cccgame.repositories.BaseCardRepository;
 import com.games.cccgame.repositories.PlayerCardRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -26,7 +29,11 @@ public class PlayerCardService {
 
     private PlayerCardRepository playerCardRepository;
 
+    private BaseCardRepository baseCardRepository;
+
     private BaseCardService baseCardService;
+
+    private Calculate calculate;
 
     private CardMapper cardMapper;
 
@@ -35,6 +42,7 @@ public class PlayerCardService {
     public PlayerCard createPlayerCard(CreatePlayercardCommand command) {
 
         BaseCard baseCard = modelMapper.map(command, BaseCard.class);
+        calculate.baseCardCornering(baseCard);
 
         return playerCardRepository.save(
             cardMapper.BaseCardToPlayerCard(baseCard)
@@ -57,6 +65,7 @@ public class PlayerCardService {
         for (CreatePlayercardCommand command: commands) {
 
             BaseCard baseCard = modelMapper.map(command, BaseCard.class);
+            baseCardService.createBaseCard(baseCard);
             PlayerCard playerCard = cardMapper.BaseCardToPlayerCard(baseCard);
             playerCardRepository.save(playerCard);
         }
@@ -65,7 +74,10 @@ public class PlayerCardService {
     }
 
     public PlayerCard getPlayerCardSkeleton() {
-        return new PlayerCardDTO();
+        PlayerCardDTO playerCardDTO = new PlayerCardDTO();
+        playerCardDTO.getBaseCard().setImageUrl("assets/img/placeholder.jpg");
+
+        return playerCardDTO;
     }
 
     public List <PlayerCard> getFilteredPlayerCards(BaseCardFilterCommand command) {

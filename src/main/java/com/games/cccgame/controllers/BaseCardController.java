@@ -30,17 +30,18 @@ public class BaseCardController {
 
     @PostMapping("/create")
     public BaseCardDTO creatBaseCard(@RequestBody CreateBaseCardCommand command) {
-        return baseCardService.createBaseCard(command);
+        return baseCardService.createBaseCardFromCommand(command);
     }
 
     @PutMapping
     public BaseCardDTO updateBaseCard(@RequestBody UpdateBaseCardCommand command) {
+        System.out.println(command);
         return baseCardService.updateBaseCard(command);
+        //return null;
     }
 
     @PutMapping("/bulk")
     public void bulkUpdateBaseCard(@RequestBody List<UpdateBaseCardCommand> commands) {
-        System.out.println(commands);
         baseCardService.bulkUpdateBaseCard(commands);
     }
 
