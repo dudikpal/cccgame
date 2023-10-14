@@ -35,7 +35,9 @@ public class BaseCardController {
 
     @PutMapping
     public BaseCardDTO updateBaseCard(@RequestBody UpdateBaseCardCommand command) {
+        System.out.println(command);
         return baseCardService.updateBaseCard(command);
+        //return null;
     }
 
     @PutMapping("/bulk")
