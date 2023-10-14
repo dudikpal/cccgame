@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Tunings {
 
-    private int body;
+    private int body = 0;
 
-    private int engine;
+    private int engine = 0;
 
-    private int cornering;
+    private int cornering = 0;
 }
