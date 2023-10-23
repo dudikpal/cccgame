@@ -42,7 +42,17 @@ public class PlayerCardService {
     public PlayerCard createPlayerCard(CreatePlayercardCommand command) {
 
         BaseCard baseCard = modelMapper.map(command, BaseCard.class);
-        calculate.baseCardCornering(baseCard);
+        //calculate.baseCardCornering(baseCard);
+
+        return playerCardRepository.save(
+            cardMapper.BaseCardToPlayerCard(baseCard)
+        );
+    }
+
+    public PlayerCard createPlayerCard(String baseCardId) {
+
+        BaseCard baseCard = baseCardService.getBaseCardById(baseCardId);
+        //calculate.baseCardCornering(baseCard);
 
         return playerCardRepository.save(
             cardMapper.BaseCardToPlayerCard(baseCard)
