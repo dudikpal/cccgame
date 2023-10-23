@@ -22,6 +22,8 @@ public class PlayerCard {
     @Id
     private String id;
 
+    private String garageId;
+
     private BaseCard baseCard = new BaseCard();
 
     private Tunings tunings = new Tunings();

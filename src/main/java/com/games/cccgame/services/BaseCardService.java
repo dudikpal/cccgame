@@ -152,7 +152,9 @@ public class BaseCardService {
 
     public BaseCard createBaseCard(BaseCard baseCard) {
         calculate.baseCardCornering(baseCard);
-        baseCardRepository.save(baseCard);
+        if (baseCardRepository.save(baseCard).getClass().equals(BaseCard.class)) {
+            log.info("BaseCard saved to database with id: " + baseCard.getId());
+        }
 
         return baseCard;
     }
